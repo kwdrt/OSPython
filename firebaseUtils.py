@@ -41,7 +41,8 @@ class PersonService:
 
         self.db.child("OSP").child("People").push(person_data)
 
-    def remove_person_from_active(self):
+    def remove_person_from_active(self, id):
+        self.db.child("OSP").child("People").child(id).update({"IsActive": 0})
         pass
 
     def change_person_data(self):
