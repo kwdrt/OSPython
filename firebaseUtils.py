@@ -43,14 +43,14 @@ class PersonService:
 
     def check_person_existence(self, first_name, last_name, phone_number):
         all_people = self.db.child("OSP").child("People").get().val()
-        is_there = 0
+        person_id = -1
 
-        for _, i in all_people.items():
+        for key, i in all_people.items():
             if i is not None:
                 if i.get('FirstName') == first_name and i.get('LastName') == last_name and i.get('PhoneNumber') == phone_number:
-                    is_there = 1
+                    person_id = key
                     break
-        return is_there
+        return person_id
 
     def remove_person_from_active(self, id):
         self.db.child("OSP").child("People").child(id).update({"IsActive": 0})
