@@ -56,3 +56,5 @@ print("Second commit test")
 start_window.show()
 app.exec()
 
+#test komentarz
+
