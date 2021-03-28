@@ -50,6 +50,8 @@ raport_window.pushButton_2.clicked.connect(lambda: switch_window(raport_window, 
 
 section_window.pushButton_2.clicked.connect(lambda: switch_window(section_window, start_window))
 
+#test of the commit
+print("Commit test")
 start_window.show()
 app.exec()
 
