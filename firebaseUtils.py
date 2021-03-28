@@ -21,22 +21,15 @@ class PersonService:
         return var.val()
 
     def add_person(self, first_name, last_name, is_action_leader, is_active, is_driver, is_section_leader, phone_number):
-        FirstName = "John"
-        LastName = "Smith"
-        IsActionLeader = 1
-        IsActive = 1
-        IsDriver = 1
-        IsSectionLeader = 1
-        PhoneNumber = 123412345
 
         person_data = {
-            "FirstName": FirstName,
-            "LastName": LastName,
-            "IsActionLeader": IsActionLeader,
-            "IsActive": IsActive,
-            "IsDriver": IsDriver,
-            "IsSectionLeader": IsSectionLeader,
-            "PhoneNumber": PhoneNumber
+            "FirstName": first_name,
+            "LastName": last_name,
+            "IsActionLeader": is_action_leader,
+            "IsActive": is_active,
+            "IsDriver": is_driver,
+            "IsSectionLeader": is_section_leader,
+            "PhoneNumber": phone_number
         }
 
         self.db.child("OSP").child("People").push(person_data)
