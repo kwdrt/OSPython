@@ -52,6 +52,7 @@ section_window.pushButton_2.clicked.connect(lambda: switch_window(section_window
 
 #test of the commit
 print("Commit test")
+print("Second commit test")
 start_window.show()
 app.exec()
 
