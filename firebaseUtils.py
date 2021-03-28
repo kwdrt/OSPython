@@ -23,3 +23,16 @@ class FireService:
     def get_all_reports(self):
         var = self.db.child("OSP").child("Reports").get()
         return var.val()
+
+    def add_person(self):
+        pass
+
+    def remove_person_from_active(self):
+        pass
+
+    def change_person_data(self):
+        pass
+
+    def get_report_data(self):
+        pass
+
