@@ -1,1 +1,2 @@
 1. Dodać edycję raportów
+2. Ogarnąć plik exe
