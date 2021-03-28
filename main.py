@@ -52,4 +52,3 @@ section_window.pushButton_2.clicked.connect(lambda: switch_window(section_window
 
 start_window.show()
 app.exec()
-
