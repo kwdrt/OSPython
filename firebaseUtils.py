@@ -11,7 +11,7 @@ config = {
 }
 
 
-class FireService:
+class PersonService:
     def __init__(self):
         self.firebase = Firebase(config)
         self.db = self.firebase.database()
@@ -20,12 +20,26 @@ class FireService:
         var = self.db.child("OSP").child("People").get()
         return var.val()
 
-    def get_all_reports(self):
-        var = self.db.child("OSP").child("Reports").get()
-        return var.val()
+    def add_person(self, first_name, last_name, is_action_leader, is_active, is_driver, is_section_leader, phone_number):
+        FirstName = "John"
+        LastName = "Smith"
+        IsActionLeader = 1
+        IsActive = 1
+        IsDriver = 1
+        IsSectionLeader = 1
+        PhoneNumber = 123412345
 
-    def add_person(self):
-        pass
+        person_data = {
+            "FirstName": FirstName,
+            "LastName": LastName,
+            "IsActionLeader": IsActionLeader,
+            "IsActive": IsActive,
+            "IsDriver": IsDriver,
+            "IsSectionLeader": IsSectionLeader,
+            "PhoneNumber": PhoneNumber
+        }
+
+        self.db.child("OSP").child("People").push(person_data)
 
     def remove_person_from_active(self):
         pass
@@ -33,6 +47,15 @@ class FireService:
     def change_person_data(self):
         pass
 
+
+class ReportService:
+    def __init__(self):
+        self.firebase = Firebase(config)
+        self.db = self.firebase.database()
+
+    def get_all_reports(self):
+        var = self.db.child("OSP").child("Reports").get()
+        return var.val()
+
     def get_report_data(self):
         pass
-

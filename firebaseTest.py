@@ -1,6 +1,12 @@
 import firebaseUtils as fU
 
-dataService = fU.FireService()
-print(dataService.get_all_people())
+personService = fU.PersonService()
+reportService = fU.ReportService()
+
+print(personService.get_all_people())
 print("\n")
-print(dataService.get_all_reports())
+print(reportService.get_all_reports())
+
+personService.add_person()
+
+print(personService.get_all_people())
