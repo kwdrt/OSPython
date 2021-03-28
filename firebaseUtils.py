@@ -56,15 +56,16 @@ class PersonService:
         self.db.child("OSP").child("People").child(id).update({"IsActive": 0})
 
     def change_person_data(self, id, first_name, last_name, phone_number, is_active, is_driver, is_action_leader, is_section_leader):
-        self.db.child("OSP").child("People").child(id).update({
-            "FirstName": first_name,
-            "LastName": last_name,
-            "IsActionLeader": is_action_leader,
-            "IsActive": is_active,
-            "IsDriver": is_driver,
-            "IsSectionLeader": is_section_leader,
-            "PhoneNumber": phone_number
-        })
+        if id != -1:
+            self.db.child("OSP").child("People").child(id).update({
+                "FirstName": first_name,
+                "LastName": last_name,
+                "IsActionLeader": is_action_leader,
+                "IsActive": is_active,
+                "IsDriver": is_driver,
+                "IsSectionLeader": is_section_leader,
+                "PhoneNumber": phone_number
+            })
 
 
 class ReportService:

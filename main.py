@@ -3,7 +3,7 @@
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 import sys
-from PyQt5 import QtWidgets, uic
+from PyQt5 import QtWidgets
 from start import Ui_MainWindow
 from raport import Ui_RaportWindow
 from section import Ui_SectionWindow
