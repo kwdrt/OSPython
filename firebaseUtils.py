@@ -20,7 +20,14 @@ class PersonService:
         var = self.db.child("OSP").child("People").get()
         return var.val()
 
-    def add_person(self, first_name, last_name, is_action_leader, is_active, is_driver, is_section_leader, phone_number):
+    def add_person(self,
+                   first_name,
+                   last_name,
+                   is_action_leader,
+                   is_active,
+                   is_driver,
+                   is_section_leader,
+                   phone_number):
 
         person_data = {
             "FirstName": first_name,
@@ -33,6 +40,17 @@ class PersonService:
         }
 
         self.db.child("OSP").child("People").push(person_data)
+
+    def check_person_existence(self, first_name, last_name, phone_number):
+        all_people = self.db.child("OSP").child("People").get().val()
+        is_there = 0
+
+        for _, i in all_people.items():
+            if i is not None:
+                if i.get('FirstName') == first_name and i.get('LastName') == last_name and i.get('PhoneNumber') == phone_number:
+                    is_there = 1
+                    break
+        return is_there
 
     def remove_person_from_active(self, id):
         self.db.child("OSP").child("People").child(id).update({"IsActive": 0})
