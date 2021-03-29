@@ -1,2 +1,7 @@
 1. Dodać edycję raportów
 2. Ogarnąć plik exe
+3. Dodać edycję raportu
+4. Zmienić (jeżeli to możliwe) "data i godzina" w raporcie na "data" i "godzina" i fajnie jakby można było
+   klikając na datę mieć podgląd kalendarza
+5. Pamiętać o automatycznym ustawianiu daty i godziny w sekcji raporty na aktualne w systemie
+6. Lista raportów w sekcji archiwum ma się automatycznie wypełniać od najnowszego raportu (wgl bez używania filtrów)
