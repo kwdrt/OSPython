@@ -41,6 +41,15 @@ class PersonService:
 
         self.db.child("OSP").child("People").push(person_data)
 
+    def get_drivers(self):
+        peoples = self.get_all_people()
+        drivers = []
+        for key, i in peoples.items():
+            if i is not None:
+                if i.get("IsDriver") == 1:
+                    drivers.append({"FirstName": i.get("FirstName"), "LastName": i.get("LastName"), "PhoneNumber": i.get("PhoneNumber")})
+        return drivers
+
     def check_person_existence(self, first_name, last_name, phone_number):
         all_people = self.db.child("OSP").child("People").get().val()
         person_id = None
