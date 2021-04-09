@@ -1,7 +1,11 @@
-1. Dodać edycję raportów
-2. Ogarnąć plik exe
-3. Dodać edycję raportu
-4. Zmienić (jeżeli to możliwe) "data i godzina" w raporcie na "data" i "godzina" i fajnie jakby można było
-   klikając na datę mieć podgląd kalendarza
-5. Pamiętać o automatycznym ustawianiu daty i godziny w sekcji raporty na aktualne w systemie
-6. Lista raportów w sekcji archiwum ma się automatycznie wypełniać od najnowszego raportu (wgl bez używania filtrów)
+1. Ogarnąć plik exe (na koniec)
+2. Pamiętać o automatycznym ustawianiu daty i godziny w sekcji raporty na aktualne w systemie (poprawić w paru miejscach jeszcze)
+3. Lista raportów w sekcji archiwum ma się automatycznie wypełniać od najnowszego raportu (wgl bez używania filtrów)
+4. Click swap na listach
+5. Walidacja
+6. Szukanie
+7. PDFy
+8. Wrzucić wyciąganie ID w jedną funkcję
+9. Wszystkie inity w jedną funkcję na klasach
+10. Refresh wartości między przełączeniami
+11. Członkowie (ez)

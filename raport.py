@@ -10,7 +10,6 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QDate
-import firebaseUtils as fU
 
 
 class Ui_RaportWindow(object):
@@ -23,7 +22,7 @@ class Ui_RaportWindow(object):
 
     def setupUi(self, RaportWindow):
         RaportWindow.setObjectName("RaportWindow")
-        RaportWindow.resize(937, 933)
+        RaportWindow.resize(935, 933)
         self.centralwidget = QtWidgets.QWidget(RaportWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.line = QtWidgets.QFrame(self.centralwidget)
@@ -119,11 +118,11 @@ class Ui_RaportWindow(object):
         self.label_13 = QtWidgets.QLabel(self.centralwidget)
         self.label_13.setGeometry(QtCore.QRect(140, 440, 131, 16))
         self.label_13.setObjectName("label_13")
-        self.section_current = QtWidgets.QListView(self.centralwidget)
+        self.section_current = QtWidgets.QListWidget(self.centralwidget)
         self.section_current.setGeometry(QtCore.QRect(20, 520, 241, 192))
         self.section_current.setUniformItemSizes(True)
         self.section_current.setObjectName("section_current")
-        self.all_members = QtWidgets.QListView(self.centralwidget)
+        self.all_members = QtWidgets.QListWidget(self.centralwidget)
         self.all_members.setGeometry(QtCore.QRect(320, 520, 241, 192))
         self.all_members.setUniformItemSizes(True)
         self.all_members.setObjectName("all_members")
@@ -180,7 +179,7 @@ class Ui_RaportWindow(object):
         self.label_21 = QtWidgets.QLabel(self.centralwidget)
         self.label_21.setGeometry(QtCore.QRect(600, 50, 121, 16))
         self.label_21.setObjectName("label_21")
-        self.report_list_search = QtWidgets.QListView(self.centralwidget)
+        self.report_list_search = QtWidgets.QListWidget(self.centralwidget)
         self.report_list_search.setGeometry(QtCore.QRect(640, 210, 256, 192))
         self.report_list_search.setObjectName("report_list_search")
         self.generate_report_button = QtWidgets.QPushButton(self.centralwidget)
@@ -247,7 +246,7 @@ class Ui_RaportWindow(object):
         self.at_place_search.setObjectName("at_place_search")
         RaportWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(RaportWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 937, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 935, 21))
         self.menubar.setObjectName("menubar")
         RaportWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(RaportWindow)
@@ -299,6 +298,12 @@ class Ui_RaportWindow(object):
         self.at_place_date_search.setDate(QDate.currentDate())
         self.add_report_button.clicked.connect(lambda: self.add_report())
 
+    def add_all_people(self):
+        all_people = self.ps.get_all_people()
+        for key, i in all_people.items():
+            if i is not None:
+                self.all_members.addItem(i.get("FirstName") + i.get("LastName") + str(i.get("PhoneNumber")))
+
 
     def set_all_drivers(self):
         for driver in self.driver_list:
@@ -325,30 +330,33 @@ class Ui_RaportWindow(object):
         pass
 
         # get list of all?
+
     def get_all_reports(self):
         pass
 
         # check if report is valid (18 checks? some can be skipped)
+
     def validate(self):
         pass
 
         # add report with current data
+
     def add_report(self):
-        #print(self.KM_to_place.toPlainText())
-        #print(self.KM_to_place)
-        #print(self.at_place_date.date().toString('dd-MM-yyyy'))
-        #print(self.at_place_hour.dateTime().toString('HH:mm'))
-        #print(self.rs)
+        # print(self.KM_to_place.toPlainText())
+        # print(self.KM_to_place)
+        # print(self.at_place_date.date().toString('dd-MM-yyyy'))
+        # print(self.at_place_hour.dateTime().toString('HH:mm'))
+        # print(self.rs)
 
         # get id of driver, section leader, action leader
-        
+
         driver_details = self.driver_id.currentText()
         dd = driver_details.split(",")
         d_len = len(dd)
-        d_num = dd[d_len-1]
-        d_last = dd[d_len-2]
+        d_num = dd[d_len - 1]
+        d_last = dd[d_len - 2]
         d_first = ""
-        for i in range(0, d_len-2):
+        for i in range(0, d_len - 2):
             d_first += dd[i]
         d_id = self.ps.check_person_existence(d_first, d_last, int(d_num))
 
@@ -371,7 +379,6 @@ class Ui_RaportWindow(object):
         for i in range(0, al_len - 2):
             al_first += al[i]
         al_id = self.ps.check_person_existence(al_first, al_last, int(al_num))
-        
 
         self.rs.add_report(self.KM_to_place.toPlainText(),
                            self.accident_type.toPlainText(),
@@ -392,4 +399,3 @@ class Ui_RaportWindow(object):
                            al_id,
                            d_id,
                            self.accident_type_2.toPlainText())
-

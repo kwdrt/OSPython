@@ -32,6 +32,7 @@ class RaportWindow(QtWidgets.QMainWindow, Ui_RaportWindow):
         self.set_all_sleaders()
         self.aleader_list = self.ps.get_action_leaders()
         self.set_all_aleaders()
+        self.add_all_people()
 
 
 class SectionWindow(QtWidgets.QMainWindow, Ui_SectionWindow):
