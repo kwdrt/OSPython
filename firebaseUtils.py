@@ -77,8 +77,9 @@ class ReportService:
         var = self.db.child("OSP").child("Reports").get()
         return var.val()
 
-    def get_report_data(self):
-        pass
+    def get_report_data(self, report_id):
+        report = self.db.child("OSP").child("Reports").child(report_id).get()
+        return report.val()
 
     def add_report(self, km_to_place, accident_type, at_place_date, at_place_hour, counter_state, depot_hour,
                    injured, out_date, out_hour, perpetrator, place_name, return_date, return_hour, section_current,
@@ -104,3 +105,28 @@ class ReportService:
             "section_leader_id": section_leader_id
         }
         self.db.child("OSP").child("Reports").push(report_data)
+
+    def change_report_data(self, report_id, km_to_place, accident_type, at_place_date, at_place_hour, counter_state,
+                           depot_hour, injured, out_date, out_hour, perpetrator, place_name, return_date, return_hour,
+                           section_current, section_leader_id, editable, action_leader_id, driver_id):
+        if report_id is not None:
+            self.db.child("OSP").child("Reports").child(report_id).update({
+                "KM_to_place": km_to_place,
+                "accident_type": accident_type,
+                "action_leader_id": action_leader_id,
+                "at_place_date": at_place_date,
+                "at_place_hour": at_place_hour,
+                "counter_state": counter_state,
+                "depot_hour": depot_hour,
+                "driver_id": driver_id,
+                "editable": editable,
+                "injured": injured,
+                "out_date": out_date,
+                "out_hour": out_hour,
+                "perpetrator": perpetrator,
+                "place_name": place_name,
+                "return_date": return_date,
+                "return_hour": return_hour,
+                "section_current": section_current,
+                "section_leader_id": section_leader_id
+            })
