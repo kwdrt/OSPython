@@ -56,7 +56,7 @@ start_window.pushButton_2.clicked.connect(lambda: switch_window(start_window, se
 start_window.pushButton_3.clicked.connect(lambda: shutdown(app))
 
 raport_window.pushButton_2.clicked.connect(lambda: switch_window(raport_window, start_window))
-raport_window.pushButton_4.clicked.connect(lambda: switch_window(raport_window, raport_edit_window))
+raport_window.edit_report_button.clicked.connect(lambda: switch_window(raport_window, raport_edit_window))
 
 raport_edit_window.pushButton_2.clicked.connect(lambda: switch_window(raport_edit_window, raport_window))
 
