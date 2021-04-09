@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import QDate
 
 
 class Ui_RaportWindow(object):
@@ -282,3 +283,9 @@ class Ui_RaportWindow(object):
         self.pushButton_4.setText(_translate("RaportWindow", "Edytuj wybrany raport"))
         self.label_26.setText(_translate("RaportWindow", "Godzina wyjazdu"))
         self.label_27.setText(_translate("RaportWindow", "Godzina na miejscu"))
+
+    #dateEdit, dateEdit_2, dateEdit_6
+
+        self.dateEdit.setDate(QDate.currentDate())
+        self.dateEdit_2.setDate(QDate.currentDate())
+        self.dateEdit_6.setDate(QDate.currentDate())
