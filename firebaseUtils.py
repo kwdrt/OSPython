@@ -50,8 +50,26 @@ class PersonService:
                     drivers.append({"FirstName": i.get("FirstName"), "LastName": i.get("LastName"), "PhoneNumber": i.get("PhoneNumber")})
         return drivers
 
+    def get_action_leaders(self):
+        peoples = self.get_all_people()
+        action_leaders = []
+        for key, i in peoples.items():
+            if i is not None:
+                if i.get("IsActionLeader") == 1:
+                    action_leaders.append({"FirstName": i.get("FirstName"), "LastName": i.get("LastName"), "PhoneNumber": i.get("PhoneNumber")})
+        return action_leaders
+
+    def get_section_leaders(self):
+        peoples = self.get_all_people()
+        section_leaders = []
+        for key, i in peoples.items():
+            if i is not None:
+                if i.get("IsSectionLeader") == 1:
+                    section_leaders.append({"FirstName": i.get("FirstName"), "LastName": i.get("LastName"), "PhoneNumber": i.get("PhoneNumber")})
+        return section_leaders
+
     def check_person_existence(self, first_name, last_name, phone_number):
-        all_people = self.db.child("OSP").child("People").get().val()
+        all_people = self.get_all_people()
         person_id = None
 
         for key, i in all_people.items():
