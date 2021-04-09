@@ -284,8 +284,30 @@ class Ui_RaportWindow(object):
         self.label_26.setText(_translate("RaportWindow", "Godzina wyjazdu"))
         self.label_27.setText(_translate("RaportWindow", "Godzina na miejscu"))
 
-    #dateEdit, dateEdit_2, dateEdit_6
+        # block of code which should remain after UI change
 
         self.dateEdit.setDate(QDate.currentDate())
         self.dateEdit_2.setDate(QDate.currentDate())
         self.dateEdit_6.setDate(QDate.currentDate())
+
+
+        # get reports in report list
+        # maybe more universal one?
+        # "" as place makes place check skipped
+        def updateReportList(dateStart, dateEnd, hourStart, hourEnd, place):
+            # clean current
+            # clean selected
+            # insert all which apply
+            pass
+
+        # get list of all?
+        def getAllReports():
+            pass
+
+        # check if report is valid (18 checks? some can be skipped)
+        def validate():
+            pass
+
+        # add report with current data
+        def addReport():
+            pass
