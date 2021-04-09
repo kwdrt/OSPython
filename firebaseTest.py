@@ -20,4 +20,4 @@ personService.change_person_data(id_changed, "Jan", "KowalskiZmiana", 666666666,
 #reportService.add_report(30, "kot na drzewie", "10-10-2010", "22:12", "2000001",
 #                         "01:41", "Maria Nowak", "10-10-2010", "22:00",
 #                         "Kot Filemon", "Ogrodowa 12", "11-10-2010", "01:55",
-#                         ["key2", "key4", "key12"], 5, 0, 11, 2)
+#                         ["key2", "key4", "key12"], 5, 0, 11, 2, "szczegoly zdarzenia")

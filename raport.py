@@ -314,23 +314,29 @@ class Ui_RaportWindow(object):
 
         # add report with current data
     def add_report(self):
-        print("here")
+        print(self.KM_to_place.toPlainText())
+        print(self.KM_to_place)
+        print(self.at_place_date.date().toString('dd-MM-yyyy'))
+        print(self.at_place_hour.dateTime().toString('HH:mm'))
+        print(self.rs)
+
         self.rs.add_report(self.KM_to_place.toPlainText(),
                            self.accident_type.toPlainText(),
+                           self.at_place_date.dateTime().toString('HH:mm'),
+                           self.at_place_hour.dateTime().toString('HH:mm'),
+                           self.counter_state.toPlainText(),
+                           self.depot_hour.dateTime().toString('HH:mm'),
                            self.injured.toPlainText(),
-                           self.at_place_hour.date(),
-                           "2000001",
-                           "01:41",
-                           "Maria Nowak",
-                           "10-10-2020",
-                           "22:00",
-                           "Kot Filemorhfdkjhfdsn",
-                           "Ogrodowa 12",
-                           "11-10-2010",
-                           "01:55",
-                           ["key2", "key4", "key12", "key13"],
-                           5,
+                           self.out_date.date().toString('dd-MM-yyyy'),
+                           self.out_hour.dateTime().toString('HH:mm'),
+                           self.perpetrator.toPlainText(),
+                           self.place_name.toPlainText(),
+                           self.return_date.date().toString('dd-MM-yyyy'),
+                           self.return_hour.dateTime().toString('HH:mm'),
+                           ["addtest"],
+                           1,
                            0,
-                           11,
-                           2)
+                           1,
+                           1,
+                           self.accident_type_2.toPlainText())
 

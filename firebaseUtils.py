@@ -83,7 +83,7 @@ class ReportService:
 
     def add_report(self, km_to_place, accident_type, at_place_date, at_place_hour, counter_state, depot_hour,
                    injured, out_date, out_hour, perpetrator, place_name, return_date, return_hour, section_current,
-                   section_leader_id, editable, action_leader_id, driver_id):
+                   section_leader_id, editable, action_leader_id, driver_id, details):
         report_data = {
             "KM_to_place": km_to_place,
             "accident_type": accident_type,
@@ -102,13 +102,14 @@ class ReportService:
             "return_date": return_date,
             "return_hour": return_hour,
             "section_current": section_current,
-            "section_leader_id": section_leader_id
+            "section_leader_id": section_leader_id,
+            "details": details
         }
         self.db.child("OSP").child("Reports").push(report_data)
 
     def change_report_data(self, report_id, km_to_place, accident_type, at_place_date, at_place_hour, counter_state,
                            depot_hour, injured, out_date, out_hour, perpetrator, place_name, return_date, return_hour,
-                           section_current, section_leader_id, editable, action_leader_id, driver_id):
+                           section_current, section_leader_id, editable, action_leader_id, driver_id, details):
         if report_id is not None:
             self.db.child("OSP").child("Reports").child(report_id).update({
                 "KM_to_place": km_to_place,
@@ -128,5 +129,6 @@ class ReportService:
                 "return_date": return_date,
                 "return_hour": return_hour,
                 "section_current": section_current,
-                "section_leader_id": section_leader_id
+                "section_leader_id": section_leader_id,
+                "details": details
             })
