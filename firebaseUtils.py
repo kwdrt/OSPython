@@ -42,6 +42,8 @@ class PersonService:
         self.db.child("OSP").child("People").push(person_data)
 
     def check_person_existence(self, first_name, last_name, phone_number):
+        #change to None
+        #change name
         all_people = self.db.child("OSP").child("People").get().val()
         person_id = -1
 
