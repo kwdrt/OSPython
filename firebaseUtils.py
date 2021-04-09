@@ -45,7 +45,7 @@ class PersonService:
         #change to None
         #change name
         all_people = self.db.child("OSP").child("People").get().val()
-        person_id = -1
+        person_id = None
 
         for key, i in all_people.items():
             if i is not None:
@@ -58,7 +58,7 @@ class PersonService:
         self.db.child("OSP").child("People").child(id).update({"IsActive": 0})
 
     def change_person_data(self, id, first_name, last_name, phone_number, is_active, is_driver, is_action_leader, is_section_leader):
-        if id != -1:
+        if id is not None:
             self.db.child("OSP").child("People").child(id).update({
                 "FirstName": first_name,
                 "LastName": last_name,
@@ -81,3 +81,28 @@ class ReportService:
 
     def get_report_data(self):
         pass
+
+    def add_report(self, km_to_place, accident_type, at_place_date, at_place_hour, counter_state, depot_hour,
+                   injured, out_date, out_hour, perpetrator, place_name, return_date, return_hour, section_current,
+                   section_leader_id, editable, action_leader_id, driver_id):
+        report_data = {
+            "KM_to_place": km_to_place,
+            "accident_type": accident_type,
+            "action_leader_id": action_leader_id,
+            "at_place_date": at_place_date,
+            "at_place_hour": at_place_hour,
+            "counter_state": counter_state,
+            "depot_hour": depot_hour,
+            "driver_id": driver_id,
+            "editable": editable,
+            "injured": injured,
+            "out_date": out_date,
+            "out_hour": out_hour,
+            "perpetrator": perpetrator,
+            "place_name": place_name,
+            "return_date": return_date,
+            "return_hour": return_hour,
+            "section_current": section_current,
+            "section_leader_id": section_leader_id
+        }
+        self.db.child("OSP").child("Reports").push(report_data)
