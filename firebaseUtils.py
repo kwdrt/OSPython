@@ -77,8 +77,9 @@ class ReportService:
         var = self.db.child("OSP").child("Reports").get()
         return var.val()
 
-    def get_report_data(self):
-        pass
+    def get_report_data(self, report_id):
+        report = self.db.child("OSP").child("Reports").child(report_id).get()
+        return report.val()
 
     def add_report(self, km_to_place, accident_type, at_place_date, at_place_hour, counter_state, depot_hour,
                    injured, out_date, out_hour, perpetrator, place_name, return_date, return_hour, section_current,
