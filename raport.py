@@ -18,6 +18,8 @@ class Ui_RaportWindow(object):
         self.rs = None
         self.ps = None
         self.driver_list = None
+        self.aleader_list = None
+        self.sleader_list = None
 
     def setupUi(self, RaportWindow):
         RaportWindow.setObjectName("RaportWindow")
@@ -300,7 +302,18 @@ class Ui_RaportWindow(object):
 
     def set_all_drivers(self):
         for driver in self.driver_list:
-            self.driver_id.addItem(driver.get("FirstName") + "," + driver.get("LastName") + "," + str(driver.get("PhoneNumber")))
+            self.driver_id.addItem(
+                driver.get("FirstName") + "," + driver.get("LastName") + "," + str(driver.get("PhoneNumber")))
+
+    def set_all_aleaders(self):
+        for aleader in self.aleader_list:
+            self.action_leader_id.addItem(
+                aleader.get("FirstName") + "," + aleader.get("LastName") + "," + str(aleader.get("PhoneNumber")))
+
+    def set_all_sleaders(self):
+        for sleader in self.sleader_list:
+            self.section_leader_id.addItem(
+                sleader.get("FirstName") + "," + sleader.get("LastName") + "," + str(sleader.get("PhoneNumber")))
 
     # get reports in report list
     # maybe more universal one?
@@ -321,15 +334,16 @@ class Ui_RaportWindow(object):
 
         # add report with current data
     def add_report(self):
-        print(self.KM_to_place.toPlainText())
-        print(self.KM_to_place)
-        print(self.at_place_date.date().toString('dd-MM-yyyy'))
-        print(self.at_place_hour.dateTime().toString('HH:mm'))
-        print(self.rs)
+        #print(self.KM_to_place.toPlainText())
+        #print(self.KM_to_place)
+        #print(self.at_place_date.date().toString('dd-MM-yyyy'))
+        #print(self.at_place_hour.dateTime().toString('HH:mm'))
+        #print(self.rs)
 
+        # get id of driver, section leader, action leader
+        
         driver_details = self.driver_id.currentText()
         dd = driver_details.split(",")
-
         d_len = len(dd)
         d_num = dd[d_len-1]
         d_last = dd[d_len-2]
@@ -338,9 +352,26 @@ class Ui_RaportWindow(object):
             d_first += dd[i]
         d_id = self.ps.check_person_existence(d_first, d_last, int(d_num))
 
-        print(d_first)
-        print(d_num)
-        print(d_last)
+        sleader_details = self.section_leader_id.currentText()
+        sl = sleader_details.split(",")
+        sl_len = len(sl)
+        sl_num = sl[d_len - 1]
+        sl_last = sl[d_len - 2]
+        sl_first = ""
+        for i in range(0, sl_len - 2):
+            sl_first += sl[i]
+        sl_id = self.ps.check_person_existence(sl_first, sl_last, int(sl_num))
+
+        aleader_details = self.action_leader_id.currentText()
+        al = aleader_details.split(",")
+        al_len = len(al)
+        al_num = al[al_len - 1]
+        al_last = al[d_len - 2]
+        al_first = ""
+        for i in range(0, al_len - 2):
+            al_first += al[i]
+        al_id = self.ps.check_person_existence(al_first, al_last, int(al_num))
+        
 
         self.rs.add_report(self.KM_to_place.toPlainText(),
                            self.accident_type.toPlainText(),
@@ -356,9 +387,9 @@ class Ui_RaportWindow(object):
                            self.return_date.date().toString('dd-MM-yyyy'),
                            self.return_hour.dateTime().toString('HH:mm'),
                            ["addtest"],
-                           1,
+                           sl_id,
                            0,
-                           1,
+                           al_id,
                            d_id,
                            self.accident_type_2.toPlainText())
 

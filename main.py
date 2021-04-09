@@ -28,6 +28,10 @@ class RaportWindow(QtWidgets.QMainWindow, Ui_RaportWindow):
         self.rs = rs
         self.driver_list = self.ps.get_drivers()
         self.set_all_drivers()
+        self.sleader_list = self.ps.get_section_leaders()
+        self.set_all_sleaders()
+        self.aleader_list = self.ps.get_action_leaders()
+        self.set_all_aleaders()
 
 
 class SectionWindow(QtWidgets.QMainWindow, Ui_SectionWindow):
