@@ -10,9 +10,14 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QDate
+import firebaseUtils as fU
 
 
 class Ui_RaportWindow(object):
+    def __init__(self):
+        self.rs = None
+        self.ps = None
+
     def setupUi(self, RaportWindow):
         RaportWindow.setObjectName("RaportWindow")
         RaportWindow.resize(937, 933)
@@ -289,24 +294,43 @@ class Ui_RaportWindow(object):
         self.out_date.setDate(QDate.currentDate())
         self.at_place_date.setDate(QDate.currentDate())
         self.at_place_date_search.setDate(QDate.currentDate())
-
+        self.add_report_button.clicked.connect(lambda: self.add_report())
         # get reports in report list
         # maybe more universal one?
         # "" as place makes place check skipped
-        def updateReportList(dateStart, dateEnd, hourStart, hourEnd, place):
-            # clean current
-            # clean selected
-            # insert all which apply
-            pass
+    def updateReportList(dateStart, dateEnd, hourStart, hourEnd, place):
+        # clean current
+        # clean selected
+        # insert all which apply
+        pass
 
         # get list of all?
-        def getAllReports():
-            pass
+    def get_all_reports(self):
+        pass
 
         # check if report is valid (18 checks? some can be skipped)
-        def validate():
-            pass
+    def validate(self):
+        pass
 
         # add report with current data
-        def addReport():
-            pass
+    def add_report(self):
+        print("here")
+        self.rs.add_report(self.KM_to_place.toPlainText(),
+                           self.accident_type.toPlainText(),
+                           self.injured.toPlainText(),
+                           self.at_place_hour.date(),
+                           "2000001",
+                           "01:41",
+                           "Maria Nowak",
+                           "10-10-2020",
+                           "22:00",
+                           "Kot Filemorhfdkjhfdsn",
+                           "Ogrodowa 12",
+                           "11-10-2010",
+                           "01:55",
+                           ["key2", "key4", "key12", "key13"],
+                           5,
+                           0,
+                           11,
+                           2)
+

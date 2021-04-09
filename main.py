@@ -3,12 +3,15 @@
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 import sys
+import firebaseUtils as fU
 from PyQt5 import QtWidgets
 from start import Ui_MainWindow
 from raport import Ui_RaportWindow
 from section import Ui_SectionWindow
 from raport_edit import Ui_RaportEditWindow
 
+ps = fU.PersonService()
+rs = fU.ReportService()
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, obj=None, **kwargs):
@@ -21,18 +24,24 @@ class RaportWindow(QtWidgets.QMainWindow, Ui_RaportWindow):
     def __init__(self, *args, obj=None, **kwargs):
         super(RaportWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
+        self.ps = ps
+        self.rs = rs
 
 
 class SectionWindow(QtWidgets.QMainWindow, Ui_SectionWindow):
     def __init__(self, *args, obj=None, **kwargs):
         super(SectionWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
+        self.ps = ps
+        self.rs = rs
 
 
 class RaportEditWindow(QtWidgets.QMainWindow, Ui_RaportEditWindow):
     def __init__(self, *args, obj=None, **kwargs):
         super(RaportEditWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
+        self.ps = ps
+        self.rs = rs
 
 
 def switch_window(currentWindow, newWindow):
