@@ -327,6 +327,21 @@ class Ui_RaportWindow(object):
         print(self.at_place_hour.dateTime().toString('HH:mm'))
         print(self.rs)
 
+        driver_details = self.driver_id.currentText()
+        dd = driver_details.split(",")
+
+        d_len = len(dd)
+        d_num = dd[d_len-1]
+        d_last = dd[d_len-2]
+        d_first = ""
+        for i in range(0, d_len-2):
+            d_first += dd[i]
+        d_id = self.ps.check_person_existence(d_first, d_last, int(d_num))
+
+        print(d_first)
+        print(d_num)
+        print(d_last)
+
         self.rs.add_report(self.KM_to_place.toPlainText(),
                            self.accident_type.toPlainText(),
                            self.at_place_date.dateTime().toString('HH:mm'),
@@ -344,6 +359,6 @@ class Ui_RaportWindow(object):
                            1,
                            0,
                            1,
-                           1,
+                           d_id,
                            self.accident_type_2.toPlainText())
 
