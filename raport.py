@@ -17,6 +17,7 @@ class Ui_RaportWindow(object):
     def __init__(self):
         self.rs = None
         self.ps = None
+        self.driver_list = None
 
     def setupUi(self, RaportWindow):
         RaportWindow.setObjectName("RaportWindow")
@@ -295,9 +296,15 @@ class Ui_RaportWindow(object):
         self.at_place_date.setDate(QDate.currentDate())
         self.at_place_date_search.setDate(QDate.currentDate())
         self.add_report_button.clicked.connect(lambda: self.add_report())
-        # get reports in report list
-        # maybe more universal one?
-        # "" as place makes place check skipped
+
+
+    def set_all_drivers(self):
+        for driver in self.driver_list:
+            self.driver_id.addItem(driver.get("FirstName") + "," + driver.get("LastName") + "," + str(driver.get("PhoneNumber")))
+
+    # get reports in report list
+    # maybe more universal one?
+    # "" as place makes place check skipped
     def updateReportList(dateStart, dateEnd, hourStart, hourEnd, place):
         # clean current
         # clean selected

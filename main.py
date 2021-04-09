@@ -26,6 +26,8 @@ class RaportWindow(QtWidgets.QMainWindow, Ui_RaportWindow):
         self.setupUi(self)
         self.ps = ps
         self.rs = rs
+        self.driver_list = self.ps.get_drivers()
+        self.set_all_drivers()
 
 
 class SectionWindow(QtWidgets.QMainWindow, Ui_SectionWindow):
