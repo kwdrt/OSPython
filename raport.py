@@ -305,6 +305,31 @@ class Ui_RaportWindow(object):
                 self.all_members.addItem(i.get("FirstName") + i.get("LastName") + str(i.get("PhoneNumber")))
 
 
+
+    #to get rid of repeating instructions
+
+    #adds all elements to the UI item, can expand with refresh of the list later
+    def set_all(self, list_all, ui_element):
+        for person in list_all:
+            self.ui_element.addItem(
+                person.get("FirstName") + "," + person.get("LastName") + "," + str(person.get("PhoneNumber")))
+
+    #gets id of chosen person from data in UI element, should return None if not found (should not happen in usage)
+    def translate_to_id(self, ui_element):
+        person_details = self.ui_element.currentText()
+        person_details = person_details.split(",")
+        p_len = len(person_details)
+        p_num = person_details[d_len - 1]
+        p_last = person_details[d_len - 2]
+        p_first = ""
+        for i in range(0, p_len - 2):
+            p_first += person_details[i]
+        return self.ps.check_person_existence(p_first, p_last, int(p_num))
+
+    # end of these
+
+
+    # next three can be replaced with set_all
     def set_all_drivers(self):
         for driver in self.driver_list:
             self.driver_id.addItem(
@@ -350,6 +375,7 @@ class Ui_RaportWindow(object):
 
         # get id of driver, section leader, action leader
 
+        #next three blocks can be replaced with translate_to_id
         driver_details = self.driver_id.currentText()
         dd = driver_details.split(",")
         d_len = len(dd)
