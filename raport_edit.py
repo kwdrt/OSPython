@@ -267,7 +267,20 @@ class Ui_RaportEditWindow(object):
     def refresh(self):
         self.clean_window()
         # add loading things afterwards (people etc)
-        pass
+
+        # T O D O get chosen report data
+
+        # will be rolled in a function?
+        self.driver_list = self.ps.get_drivers()
+        self.set_all_drivers()
+        self.sleader_list = self.ps.get_section_leaders()
+        self.set_all_sleaders()
+        self.aleader_list = self.ps.get_action_leaders()
+        self.set_all_aleaders()
+        self.add_all_people()
+
+        # need a function to add the person from selected report to the lists, if he isn't there already
+
 
     def add_all_people(self):
         all_people = self.ps.get_all_people()
@@ -286,6 +299,49 @@ class Ui_RaportEditWindow(object):
 
     def set_report_values(self):
         pass
+
+
+    # TEST BLOCK OF CODE FOR SUPPORT OF SETTING LEADER AND SO ON, WILL BE CHANGED
+
+        # to get rid of repeating instructions
+
+        # adds all elements to the UI item, can expand with refresh of the list later
+    def set_all(self, list_all, ui_element):
+        for person in list_all:
+            self.ui_element.addItem(
+                person.get("FirstName") + "," + person.get("LastName") + "," + str(person.get("PhoneNumber")))
+
+    # gets id of chosen person from data in UI element, should return None if not found (should not happen in usage)
+    def translate_to_id(self, ui_element):
+        person_details = self.ui_element.currentText()
+        person_details = person_details.split(",")
+        p_len = len(person_details)
+        p_num = person_details[p_len - 1]
+        p_last = person_details[p_len - 2]
+        p_first = ""
+        for i in range(0, p_len - 2):
+            p_first += person_details[i]
+        return self.ps.check_person_existence(p_first, p_last, int(p_num))
+
+    # end of these
+
+    # next three can be replaced with set_all
+    def set_all_drivers(self):
+        for driver in self.driver_list:
+            self.driver_id.addItem(
+                driver.get("FirstName") + "," + driver.get("LastName") + "," + str(driver.get("PhoneNumber")))
+
+    def set_all_aleaders(self):
+        for aleader in self.aleader_list:
+            self.action_leader_id.addItem(
+                aleader.get("FirstName") + "," + aleader.get("LastName") + "," + str(aleader.get("PhoneNumber")))
+
+    def set_all_sleaders(self):
+        for sleader in self.sleader_list:
+            self.section_leader_id.addItem(
+                sleader.get("FirstName") + "," + sleader.get("LastName") + "," + str(sleader.get("PhoneNumber")))
+
+
 
 
 

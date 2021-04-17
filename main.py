@@ -49,6 +49,7 @@ class SectionWindow(QtWidgets.QMainWindow, Ui_SectionWindow):
         self.rs = rs
 
 
+
 class RaportEditWindow(QtWidgets.QMainWindow, Ui_RaportEditWindow):
     def __init__(self, *args, obj=None, **kwargs):
         super(RaportEditWindow, self).__init__(*args, **kwargs)
@@ -57,6 +58,13 @@ class RaportEditWindow(QtWidgets.QMainWindow, Ui_RaportEditWindow):
         # roll into prepare()
         self.ps = ps
         self.rs = rs
+        self.driver_list = self.ps.get_drivers()
+        self.set_all_drivers()
+        self.sleader_list = self.ps.get_section_leaders()
+        self.set_all_sleaders()
+        self.aleader_list = self.ps.get_action_leaders()
+        self.set_all_aleaders()
+        self.add_all_people()
 
 
 def switch_window(currentWindow, newWindow):
