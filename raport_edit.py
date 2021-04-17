@@ -241,16 +241,6 @@ class Ui_RaportEditWindow(object):
         self.aleader_list = None
         self.sleader_list = None
 
-        # T O D O set EVERYTHING correct:
-        # clean every list
-        # clean every text field
-        # set default values in all other places
-
-        pass
-
-    # to call just before window switch
-    def refresh(self):
-        self.clean_window()
         self.set_report_values()
         self.out_hour.setTime(self.def_time)
         self.at_place_hour.setTime(self.def_time)
@@ -268,6 +258,15 @@ class Ui_RaportEditWindow(object):
         self.section_leader_id.clear()
         self.action_leader_id.clear()
         self.driver_id.clear()
+        self.close_report.setCheckState(False)
+
+        # to check if all is covered
+
+
+    # to call just before window switch
+    def refresh(self):
+        self.clean_window()
+        # add loading things afterwards (people etc)
         pass
 
     def add_all_people(self):

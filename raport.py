@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QDate
+from PyQt5.QtCore import QDate, QTime
 
 
 class Ui_RaportWindow(object):
@@ -19,6 +19,7 @@ class Ui_RaportWindow(object):
         self.driver_list = None
         self.aleader_list = None
         self.sleader_list = None
+        self.def_time = QTime(00, 00, 0)
 
     def setupUi(self, RaportWindow):
         RaportWindow.setObjectName("RaportWindow")
@@ -358,6 +359,8 @@ class Ui_RaportWindow(object):
     # to call just before window switch
     def refresh(self):
         self.clean_window()
+        # should load drivers etc again here
+
 
     # sets date values to current ones
     def set_current_values(self):
@@ -373,6 +376,7 @@ class Ui_RaportWindow(object):
         pass
 
         # get list of all?
+
 
     def get_all_reports(self):
         pass
