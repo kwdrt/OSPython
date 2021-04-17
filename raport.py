@@ -296,6 +296,7 @@ class Ui_RaportWindow(object):
         self.out_date.setDate(QDate.currentDate())
         self.at_place_date.setDate(QDate.currentDate())
         self.at_place_date_search.setDate(QDate.currentDate())
+        self.return_date.setDate(QDate.currentDate())
         self.add_report_button.clicked.connect(lambda: self.add_report())
 
     def add_all_people(self):
@@ -319,8 +320,8 @@ class Ui_RaportWindow(object):
         person_details = self.ui_element.currentText()
         person_details = person_details.split(",")
         p_len = len(person_details)
-        p_num = person_details[d_len - 1]
-        p_last = person_details[d_len - 2]
+        p_num = person_details[p_len - 1]
+        p_last = person_details[p_len - 2]
         p_first = ""
         for i in range(0, p_len - 2):
             p_first += person_details[i]
@@ -348,6 +349,23 @@ class Ui_RaportWindow(object):
     # get reports in report list
     # maybe more universal one?
     # "" as place makes place check skipped
+
+    # delete everything, set default values
+    def clean_window(self):
+        self.set_current_values()
+        # T O D O - clean everything else
+
+    # to call just before window switch
+    def refresh(self):
+        self.clean_window()
+
+    # sets date values to current ones
+    def set_current_values(self):
+        self.out_date.setDate(QDate.currentDate())
+        self.at_place_date.setDate(QDate.currentDate())
+        self.at_place_date_search.setDate(QDate.currentDate())
+        self.return_date.setDate(QDate.currentDate())
+
     def updateReportList(dateStart, dateEnd, hourStart, hourEnd, place):
         # clean current
         # clean selected
@@ -359,13 +377,12 @@ class Ui_RaportWindow(object):
     def get_all_reports(self):
         pass
 
-        # check if report is valid (18 checks? some can be skipped)
 
+    # check if report is valid (18 checks? some can be skipped)
     def validate(self):
         pass
 
-        # add report with current data
-
+    # add report with current data
     def add_report(self):
         # print(self.KM_to_place.toPlainText())
         # print(self.KM_to_place)
@@ -375,7 +392,7 @@ class Ui_RaportWindow(object):
 
         # get id of driver, section leader, action leader
 
-        #next three blocks can be replaced with translate_to_id
+        #next three blocks can be replaced with translate_to_id call
         driver_details = self.driver_id.currentText()
         dd = driver_details.split(",")
         d_len = len(dd)

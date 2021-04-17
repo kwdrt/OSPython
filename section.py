@@ -135,3 +135,6 @@ class Ui_SectionWindow(object):
         self.pushButton.setText(_translate("SectionWindow", "Zaktualizuj dane"))
         self.pushButton_3.setText(_translate("SectionWindow", "Dodaj członka sekcji"))
         self.checkBox_7.setText(_translate("SectionWindow", "Członek nieaktywny"))
+
+    def refresh(self):
+        pass

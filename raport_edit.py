@@ -9,9 +9,18 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import QDate, QTime
 
 
 class Ui_RaportEditWindow(object):
+    def __init__(self):
+        self.rs = None
+        self.ps = None
+        self.driver_list = None
+        self.aleader_list = None
+        self.sleader_list = None
+        self.def_time = QTime(00, 00, 0)
+
     def setupUi(self, RaportEditWindow):
         RaportEditWindow.setObjectName("RaportEditWindow")
         RaportEditWindow.resize(591, 920)
@@ -20,60 +29,60 @@ class Ui_RaportEditWindow(object):
         self.label_17 = QtWidgets.QLabel(self.centralwidget)
         self.label_17.setGeometry(QtCore.QRect(20, 780, 131, 16))
         self.label_17.setObjectName("label_17")
-        self.listWidget_2 = QtWidgets.QListWidget(self.centralwidget)
-        self.listWidget_2.setGeometry(QtCore.QRect(320, 530, 241, 192))
-        self.listWidget_2.setUniformItemSizes(True)
-        self.listWidget_2.setObjectName("listWidget_2")
-        self.plainTextEdit_5 = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.plainTextEdit_5.setGeometry(QtCore.QRect(20, 330, 541, 61))
-        self.plainTextEdit_5.setObjectName("plainTextEdit_5")
+        self.all_members = QtWidgets.QListWidget(self.centralwidget)
+        self.all_members.setGeometry(QtCore.QRect(320, 530, 241, 192))
+        self.all_members.setUniformItemSizes(True)
+        self.all_members.setObjectName("all_members")
+        self.accident_type_2 = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.accident_type_2.setGeometry(QtCore.QRect(20, 330, 541, 61))
+        self.accident_type_2.setObjectName("accident_type_2")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(20, 40, 121, 16))
         self.label.setObjectName("label")
-        self.plainTextEdit_7 = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.plainTextEdit_7.setGeometry(QtCore.QRect(140, 470, 121, 21))
-        self.plainTextEdit_7.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.plainTextEdit_7.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.plainTextEdit_7.setObjectName("plainTextEdit_7")
+        self.KM_to_place = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.KM_to_place.setGeometry(QtCore.QRect(140, 470, 121, 21))
+        self.KM_to_place.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.KM_to_place.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.KM_to_place.setObjectName("KM_to_place")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(280, 40, 131, 16))
         self.label_2.setObjectName("label_2")
         self.label_16 = QtWidgets.QLabel(self.centralwidget)
         self.label_16.setGeometry(QtCore.QRect(20, 730, 131, 16))
         self.label_16.setObjectName("label_16")
-        self.plainTextEdit_2 = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.plainTextEdit_2.setGeometry(QtCore.QRect(20, 160, 541, 41))
-        self.plainTextEdit_2.setObjectName("plainTextEdit_2")
-        self.dateEdit_3 = QtWidgets.QDateEdit(self.centralwidget)
-        self.dateEdit_3.setGeometry(QtCore.QRect(20, 420, 110, 22))
-        self.dateEdit_3.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
-        self.dateEdit_3.setCalendarPopup(True)
-        self.dateEdit_3.setObjectName("dateEdit_3")
+        self.accident_type = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.accident_type.setGeometry(QtCore.QRect(20, 160, 541, 41))
+        self.accident_type.setObjectName("accident_type")
+        self.return_date = QtWidgets.QDateEdit(self.centralwidget)
+        self.return_date.setGeometry(QtCore.QRect(20, 420, 110, 22))
+        self.return_date.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
+        self.return_date.setCalendarPopup(True)
+        self.return_date.setObjectName("return_date")
         self.label_6 = QtWidgets.QLabel(self.centralwidget)
         self.label_6.setGeometry(QtCore.QRect(20, 260, 131, 16))
         self.label_6.setObjectName("label_6")
-        self.plainTextEdit = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.plainTextEdit.setGeometry(QtCore.QRect(20, 110, 541, 21))
-        self.plainTextEdit.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.plainTextEdit.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.plainTextEdit.setObjectName("plainTextEdit")
-        self.plainTextEdit_3 = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.plainTextEdit_3.setGeometry(QtCore.QRect(20, 230, 541, 21))
-        self.plainTextEdit_3.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.plainTextEdit_3.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.plainTextEdit_3.setObjectName("plainTextEdit_3")
-        self.comboBox_3 = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBox_3.setGeometry(QtCore.QRect(20, 850, 281, 22))
-        self.comboBox_3.setObjectName("comboBox_3")
-        self.dateEdit_2 = QtWidgets.QDateEdit(self.centralwidget)
-        self.dateEdit_2.setGeometry(QtCore.QRect(280, 60, 110, 22))
-        self.dateEdit_2.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
-        self.dateEdit_2.setCalendarPopup(True)
-        self.dateEdit_2.setObjectName("dateEdit_2")
-        self.timeEdit_3 = QtWidgets.QTimeEdit(self.centralwidget)
-        self.timeEdit_3.setGeometry(QtCore.QRect(140, 420, 111, 22))
-        self.timeEdit_3.setButtonSymbols(QtWidgets.QAbstractSpinBox.PlusMinus)
-        self.timeEdit_3.setObjectName("timeEdit_3")
+        self.place_name = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.place_name.setGeometry(QtCore.QRect(20, 110, 541, 21))
+        self.place_name.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.place_name.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.place_name.setObjectName("place_name")
+        self.injured = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.injured.setGeometry(QtCore.QRect(20, 230, 541, 21))
+        self.injured.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.injured.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.injured.setObjectName("injured")
+        self.driver_id = QtWidgets.QComboBox(self.centralwidget)
+        self.driver_id.setGeometry(QtCore.QRect(20, 850, 281, 22))
+        self.driver_id.setObjectName("driver_id")
+        self.at_place_date = QtWidgets.QDateEdit(self.centralwidget)
+        self.at_place_date.setGeometry(QtCore.QRect(280, 60, 110, 22))
+        self.at_place_date.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
+        self.at_place_date.setCalendarPopup(True)
+        self.at_place_date.setObjectName("at_place_date")
+        self.return_hour = QtWidgets.QTimeEdit(self.centralwidget)
+        self.return_hour.setGeometry(QtCore.QRect(140, 420, 111, 22))
+        self.return_hour.setButtonSymbols(QtWidgets.QAbstractSpinBox.PlusMinus)
+        self.return_hour.setObjectName("return_hour")
         self.label_24 = QtWidgets.QLabel(self.centralwidget)
         self.label_24.setGeometry(QtCore.QRect(140, 40, 121, 16))
         self.label_24.setObjectName("label_24")
@@ -83,61 +92,61 @@ class Ui_RaportEditWindow(object):
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
         self.label_5.setGeometry(QtCore.QRect(20, 210, 131, 16))
         self.label_5.setObjectName("label_5")
-        self.plainTextEdit_4 = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.plainTextEdit_4.setGeometry(QtCore.QRect(20, 280, 541, 21))
-        self.plainTextEdit_4.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.plainTextEdit_4.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.plainTextEdit_4.setObjectName("plainTextEdit_4")
-        self.listWidget = QtWidgets.QListWidget(self.centralwidget)
-        self.listWidget.setGeometry(QtCore.QRect(20, 530, 241, 192))
-        self.listWidget.setUniformItemSizes(True)
-        self.listWidget.setObjectName("listWidget")
-        self.timeEdit_2 = QtWidgets.QTimeEdit(self.centralwidget)
-        self.timeEdit_2.setGeometry(QtCore.QRect(400, 60, 81, 22))
-        self.timeEdit_2.setObjectName("timeEdit_2")
-        self.dateEdit = QtWidgets.QDateEdit(self.centralwidget)
-        self.dateEdit.setGeometry(QtCore.QRect(20, 60, 110, 22))
-        self.dateEdit.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
-        self.dateEdit.setCalendarPopup(True)
-        self.dateEdit.setObjectName("dateEdit")
+        self.perpetrator = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.perpetrator.setGeometry(QtCore.QRect(20, 280, 541, 21))
+        self.perpetrator.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.perpetrator.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.perpetrator.setObjectName("perpetrator")
+        self.section_current = QtWidgets.QListWidget(self.centralwidget)
+        self.section_current.setGeometry(QtCore.QRect(20, 530, 241, 192))
+        self.section_current.setUniformItemSizes(True)
+        self.section_current.setObjectName("section_current")
+        self.at_place_hour = QtWidgets.QTimeEdit(self.centralwidget)
+        self.at_place_hour.setGeometry(QtCore.QRect(400, 60, 81, 22))
+        self.at_place_hour.setObjectName("at_place_hour")
+        self.out_date = QtWidgets.QDateEdit(self.centralwidget)
+        self.out_date.setGeometry(QtCore.QRect(20, 60, 110, 22))
+        self.out_date.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
+        self.out_date.setCalendarPopup(True)
+        self.out_date.setObjectName("out_date")
         self.line_2 = QtWidgets.QFrame(self.centralwidget)
         self.line_2.setGeometry(QtCore.QRect(10, 500, 561, 16))
         self.line_2.setFrameShape(QtWidgets.QFrame.HLine)
         self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_2.setObjectName("line_2")
-        self.timeEdit = QtWidgets.QTimeEdit(self.centralwidget)
-        self.timeEdit.setGeometry(QtCore.QRect(140, 60, 81, 22))
-        self.timeEdit.setObjectName("timeEdit")
-        self.plainTextEdit_6 = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.plainTextEdit_6.setGeometry(QtCore.QRect(20, 470, 101, 21))
-        self.plainTextEdit_6.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.plainTextEdit_6.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.plainTextEdit_6.setObjectName("plainTextEdit_6")
-        self.comboBox = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBox.setGeometry(QtCore.QRect(20, 750, 281, 22))
-        self.comboBox.setObjectName("comboBox")
+        self.out_hour = QtWidgets.QTimeEdit(self.centralwidget)
+        self.out_hour.setGeometry(QtCore.QRect(140, 60, 81, 22))
+        self.out_hour.setObjectName("out_hour")
+        self.counter_state = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.counter_state.setGeometry(QtCore.QRect(20, 470, 101, 21))
+        self.counter_state.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.counter_state.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.counter_state.setObjectName("counter_state")
+        self.section_leader_id = QtWidgets.QComboBox(self.centralwidget)
+        self.section_leader_id.setGeometry(QtCore.QRect(20, 750, 281, 22))
+        self.section_leader_id.setObjectName("section_leader_id")
         self.label_7 = QtWidgets.QLabel(self.centralwidget)
         self.label_7.setGeometry(QtCore.QRect(20, 310, 131, 16))
         self.label_7.setObjectName("label_7")
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
         self.label_4.setGeometry(QtCore.QRect(20, 140, 131, 16))
         self.label_4.setObjectName("label_4")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(340, 790, 211, 81))
+        self.update_report_button = QtWidgets.QPushButton(self.centralwidget)
+        self.update_report_button.setGeometry(QtCore.QRect(340, 790, 211, 81))
         font = QtGui.QFont()
         font.setPointSize(20)
-        self.pushButton.setFont(font)
-        self.pushButton.setObjectName("pushButton")
-        self.comboBox_2 = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBox_2.setGeometry(QtCore.QRect(20, 800, 281, 22))
-        self.comboBox_2.setObjectName("comboBox_2")
+        self.update_report_button.setFont(font)
+        self.update_report_button.setObjectName("update_report_button")
+        self.action_leader_id = QtWidgets.QComboBox(self.centralwidget)
+        self.action_leader_id.setGeometry(QtCore.QRect(20, 800, 281, 22))
+        self.action_leader_id.setObjectName("action_leader_id")
         self.label_11 = QtWidgets.QLabel(self.centralwidget)
         self.label_11.setGeometry(QtCore.QRect(260, 400, 131, 16))
         self.label_11.setObjectName("label_11")
-        self.timeEdit_5 = QtWidgets.QTimeEdit(self.centralwidget)
-        self.timeEdit_5.setGeometry(QtCore.QRect(260, 420, 111, 22))
-        self.timeEdit_5.setButtonSymbols(QtWidgets.QAbstractSpinBox.PlusMinus)
-        self.timeEdit_5.setObjectName("timeEdit_5")
+        self.depot_hour = QtWidgets.QTimeEdit(self.centralwidget)
+        self.depot_hour.setGeometry(QtCore.QRect(260, 420, 111, 22))
+        self.depot_hour.setButtonSymbols(QtWidgets.QAbstractSpinBox.PlusMinus)
+        self.depot_hour.setObjectName("depot_hour")
         self.label_13 = QtWidgets.QLabel(self.centralwidget)
         self.label_13.setGeometry(QtCore.QRect(140, 450, 131, 16))
         self.label_13.setObjectName("label_13")
@@ -175,9 +184,9 @@ class Ui_RaportEditWindow(object):
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setGeometry(QtCore.QRect(0, 0, 111, 23))
         self.pushButton_2.setObjectName("pushButton_2")
-        self.checkBox = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox.setGeometry(QtCore.QRect(350, 760, 141, 17))
-        self.checkBox.setObjectName("checkBox")
+        self.close_report = QtWidgets.QCheckBox(self.centralwidget)
+        self.close_report.setGeometry(QtCore.QRect(350, 760, 141, 17))
+        self.close_report.setObjectName("close_report")
         RaportEditWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(RaportEditWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 591, 21))
@@ -203,7 +212,7 @@ class Ui_RaportEditWindow(object):
         self.label_5.setText(_translate("RaportEditWindow", "Poszkodowany"))
         self.label_7.setText(_translate("RaportEditWindow", "Szczegóły zdarzenia"))
         self.label_4.setText(_translate("RaportEditWindow", "Rodzaj zdarzenia"))
-        self.pushButton.setText(_translate("RaportEditWindow", "Aktualizuj raport"))
+        self.update_report_button.setText(_translate("RaportEditWindow", "Aktualizuj raport"))
         self.label_11.setText(_translate("RaportEditWindow", "Godzina w remizie"))
         self.label_13.setText(_translate("RaportEditWindow", "KM do miejsca zdarzenia"))
         self.label_12.setText(_translate("RaportEditWindow", "Stan licznika"))
@@ -215,4 +224,77 @@ class Ui_RaportEditWindow(object):
         self.label_10.setText(_translate("RaportEditWindow", "Data powrotu"))
         self.label_8.setText(_translate("RaportEditWindow", "Edycja raportu"))
         self.pushButton_2.setText(_translate("RaportEditWindow", "Anuluj edycję"))
-        self.checkBox.setText(_translate("RaportEditWindow", "Zamknij raport"))
+        self.close_report.setText(_translate("RaportEditWindow", "Zamknij raport"))
+
+    # block of code to stay starts here
+        self.out_date.setDate(QDate.currentDate())
+        self.at_place_date.setDate(QDate.currentDate())
+        self.return_date.setDate(QDate.currentDate())
+
+
+    # delete everything, set default values
+    def clean_window(self):
+        # current date where it should be
+        self.set_current_values()
+
+        self.driver_list = None
+        self.aleader_list = None
+        self.sleader_list = None
+
+        # T O D O set EVERYTHING correct:
+        # clean every list
+        # clean every text field
+        # set default values in all other places
+
+        pass
+
+    # to call just before window switch
+    def refresh(self):
+        self.clean_window()
+        self.set_report_values()
+        self.out_hour.setTime(self.def_time)
+        self.at_place_hour.setTime(self.def_time)
+        self.place_name.clear()
+        self.accident_type.clear()
+        self.injured.clear()
+        self.perpetrator.clear()
+        self.accident_type_2.clear()
+        self.return_hour.setTime(self.def_time)
+        self.depot_hour.setTime(self.def_time)
+        self.counter_state.clear()
+        self.KM_to_place.clear()
+        self.section_current.clear()
+        self.all_members.clear()
+        self.section_leader_id.clear()
+        self.action_leader_id.clear()
+        self.driver_id.clear()
+        pass
+
+    def add_all_people(self):
+        all_people = self.ps.get_all_people()
+        for key, i in all_people.items():
+            if i is not None:
+                self.all_members.addItem(i.get("FirstName") + i.get("LastName") + str(i.get("PhoneNumber")))
+
+    def add_current_people(self):
+        pass
+
+    # sets date values to current ones
+    def set_current_values(self):
+        self.out_date.setDate(QDate.currentDate())
+        self.at_place_date.setDate(QDate.currentDate())
+        self.return_date.setDate(QDate.currentDate())
+
+    def set_report_values(self):
+        pass
+
+
+
+    # should be the same as in raport.py
+    def validate(self):
+        pass
+
+    # upload updated report
+    def update_report(self):
+        pass
+
