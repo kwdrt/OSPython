@@ -1,11 +1,11 @@
 1. Ogarnąć plik exe (na koniec)
-2. Pamiętać o automatycznym ustawianiu daty i godziny w sekcji raporty na aktualne w systemie (poprawić w paru miejscach jeszcze)
+2. Pamiętać o automatycznym ustawianiu daty i godziny w sekcji raporty na aktualne w systemie (poprawić w paru miejscach jeszcze) -- chyba już ok?
 3. Lista raportów w sekcji archiwum ma się automatycznie wypełniać od najnowszego raportu (wgl bez używania filtrów)
 4. Click swap na listach
 5. Walidacja
 6. Szukanie
 7. PDFy
-8. Wrzucić wyciąganie ID w jedną funkcję
+8. Wrzucić wyciąganie ID w jedną funkcję -- translate_to_id() może chyba spełniać tą funkcję
 9. Wszystkie inity w jedną funkcję na klasach
 10. Refresh wartości między przełączeniami
 11. Członkowie (ez)
