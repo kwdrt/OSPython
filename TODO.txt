@@ -10,4 +10,5 @@
 10. Refresh wartości między przełączeniami
 11. Członkowie (ez)
 12. Zmienić nazwy okien w aplikacji z MainView na odpowiednie
-13. (optional) Dodać ocenianie szerokości linii w raporcie pdf. Jeżeli długość przekracza długość max ( będzie wychodzić poza stronę) to wybierz metodę long_data a jak nie wychodzi to single_data
+13. (optional) Dodać ocenianie szerokości linii w raporcie pdf. Jeżeli długość przekracza długość max ( będzie wychodzić poza stronę)
+to wybierz metodę long_data a jak nie wychodzi to single_data
