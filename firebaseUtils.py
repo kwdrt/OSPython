@@ -94,6 +94,9 @@ class PersonService:
                 "PhoneNumber": phone_number
             })
 
+    def get_person_by_id(self, id):
+        return self.db.child("OSP").child("People").child(id).get().val()
+
 
 class ReportService:
     def __init__(self):
