@@ -379,7 +379,11 @@ class Ui_RaportWindow(object):
 
 
     def get_all_reports(self):
-        pass
+        all_reports = self.rs.get_all_reports()
+        for key, i in all_reports.items():
+            if i is not None:
+                self.report_list_search.addItem(i.get("at_place_date") + "," + i.get("at_place_hour") + "," + i.get("place_name"))
+
 
 
     # check if report is valid (18 checks? some can be skipped)
