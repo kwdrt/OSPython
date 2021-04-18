@@ -12,3 +12,5 @@
 12. Zmienić nazwy okien w aplikacji z MainView na odpowiednie
 13. (optional) Dodać ocenianie szerokości linii w raporcie pdf. Jeżeli długość przekracza długość max ( będzie wychodzić poza stronę)
 to wybierz metodę long_data a jak nie wychodzi to single_data
+14. Zablokować reskalowanie okna aplikacji
+15.  Dodać do firebase pole "data dodania raportu" - ustawiana z automatu aktualna data w systemie - Później ta data będzie wyświetlana w nagłówku raportu w pdf
