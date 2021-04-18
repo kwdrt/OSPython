@@ -241,7 +241,7 @@ class Ui_RaportEditWindow(object):
         self.aleader_list = None
         self.sleader_list = None
 
-        self.set_report_values()
+
         self.out_hour.setTime(self.def_time)
         self.at_place_hour.setTime(self.def_time)
         self.place_name.clear()
@@ -259,6 +259,8 @@ class Ui_RaportEditWindow(object):
         self.action_leader_id.clear()
         self.driver_id.clear()
         self.close_report.setCheckState(False)
+
+        self.set_report_values()
 
         # to check if all is covered
 
@@ -288,8 +290,6 @@ class Ui_RaportEditWindow(object):
             if i is not None:
                 self.all_members.addItem(i.get("FirstName") + i.get("LastName") + str(i.get("PhoneNumber")))
 
-    def add_current_people(self):
-        pass
 
     # sets date values to current ones
     def set_current_values(self):
@@ -345,7 +345,7 @@ class Ui_RaportEditWindow(object):
 
 
 
-    # should be the same as in raport.py
+    # should be nearly the same as in raport.py
     def validate(self):
         pass
 
