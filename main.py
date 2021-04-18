@@ -36,6 +36,7 @@ class RaportWindow(QtWidgets.QMainWindow, Ui_RaportWindow):
         self.aleader_list = self.ps.get_action_leaders()
         self.set_all_aleaders()
         self.add_all_people()
+        self.get_all_reports()
 
 
 
