@@ -299,12 +299,83 @@ class Ui_RaportWindow(object):
         self.at_place_date_search.setDate(QDate.currentDate())
         self.return_date.setDate(QDate.currentDate())
         self.add_report_button.clicked.connect(lambda: self.add_report())
+        self.report_list_search.itemSelectionChanged.connect(lambda: self.selection_changed())
+        self.all_members.itemClicked.connect(lambda: self.pick_person_all())
+        self.section_current.itemClicked.connect(lambda: self.pick_person_current())
+        self.all_members.itemClicked.connect(lambda: self.get_selected_members_ids())
+
+    #report data view helpers
+    def id_to_text(self, ps, id):
+        person = ps.get_person_by_id(id)
+        person_data = person.get("FirstName") + " " + person.get("LastName")
+        return person_data
+
+    def section_to_string(self, ps, section_table):
+        section_string = ""
+        print(section_table)
+        for id in section_table:
+            section_string += self.id_to_text(ps, id) + "\n"
+        if section_string == "":
+            print("Empty section")
+        return section_string
+
+
+    #WORKS, JUST CHECK IF REPORT HAS CORRECT KEYS!!!!!!!
+    def selection_changed(self):
+        #DEBUG PRINTOUTS REMOVE LATER
+        chosen_report = self.report_list_search.currentItem().text()
+        print("Selected report data --  " + chosen_report)
+
+        chosen_report_id = self.rs.get_report_id_by_fields(chosen_report)
+        print("Selected report id -- " + chosen_report_id)
+        
+        chosen_report_data = self.rs.get_report_data(chosen_report_id)
+        
+        printed_data = ""
+        printed_data += "Data wyjazdu: " + chosen_report_data.get("out_date") + "\n"
+        printed_data += "Godzina wyjazdu: " + chosen_report_data.get("out_hour") + "\n"
+        printed_data += "Godzina na miejscu: " + chosen_report_data.get("at_place_hour") + "\n"
+        printed_data += "Rodzaj zdarzenia: " + chosen_report_data.get("accident_type") + "\n"
+        printed_data += "Miejsce zdarzenia: " + chosen_report_data.get("place_name") + "\n\n"
+        print(printed_data)
+        printed_data += "Skład sekcji: " + "\n" + self.section_to_string(self.ps, chosen_report_data.get("section_current")) + "\n"
+        printed_data += "Dowódca sekcji: " + self.id_to_text(self.ps, chosen_report_data.get("section_leader_id")) + "\n"
+        printed_data += "Dowódca akcji: " + self.id_to_text(self.ps, chosen_report_data.get("action_leader_id")) + "\n"
+        printed_data += "Kierowca: " + self.id_to_text(self.ps, chosen_report_data.get("driver_id")) + "\n"
+        printed_data += "Sprawca: " + chosen_report_data.get("perpetrator") + "\n"
+        printed_data += "Poszkodowany: " + chosen_report_data.get("injured") + "\n"
+        printed_data += "Szczegóły zdarzenia: " + chosen_report_data.get("details") + "\n"
+        printed_data += "Data powrotu: " + chosen_report_data.get("return_date") + "\n"
+        printed_data += "Godzina zakończenia: " + chosen_report_data.get("return_hour") + "\n"
+        printed_data += "Godzina w remizie: " + chosen_report_data.get("depot_hour") + "\n"
+        printed_data += "Stan licznika: " + chosen_report_data.get("counter_state") + "\n"
+        printed_data += "KM do miejsca zdarzenia: " + str(chosen_report_data.get("KM_to_place")) + "\n"
+        
+        print(printed_data)
+
+        self.action_details.setText(printed_data)
+
+
+    def pick_person_all(self):
+        person_picked = self.all_members.currentItem().text()
+        print(person_picked)
+
+        self.all_members.model().removeRow(self.all_members.currentRow())
+        self.section_current.addItem(person_picked)
+
+    def pick_person_current(self):
+        person_picked = self.section_current.currentItem().text()
+        print(person_picked)
+
+        self.section_current.model().removeRow(self.section_current.currentRow())
+        self.all_members.addItem(person_picked)
 
     def add_all_people(self):
         all_people = self.ps.get_all_people()
         for key, i in all_people.items():
             if i is not None:
-                self.all_members.addItem(i.get("FirstName") + i.get("LastName") + str(i.get("PhoneNumber")))
+                self.all_members.addItem(i.get("FirstName") + "," + i.get("LastName") + "," + str(i.get("PhoneNumber")))
+
 
 
 
@@ -317,12 +388,15 @@ class Ui_RaportWindow(object):
                 person.get("FirstName") + "," + person.get("LastName") + "," + str(person.get("PhoneNumber")))
 
     #gets id of chosen person from data in UI element, should return None if not found (should not happen in usage)
-    def translate_to_id(self, ui_element):
-        person_details = self.ui_element.currentText()
-        person_details = person_details.split(",")
+    def translate_to_id(self, text):
+        person_details = text.split(",")
+        print(person_details)
         p_len = len(person_details)
+        print(str(p_len))
         p_num = person_details[p_len - 1]
+        print(p_num)
         p_last = person_details[p_len - 2]
+        print(p_last)
         p_first = ""
         for i in range(0, p_len - 2):
             p_first += person_details[i]
@@ -385,6 +459,12 @@ class Ui_RaportWindow(object):
                 self.report_list_search.addItem(i.get("at_place_date") + "," + i.get("at_place_hour") + "," + i.get("place_name"))
 
 
+    def get_selected_members_ids(self):
+        all_text_data = [str(self.section_current.item(i).text()) for i in range(self.section_current.count())]
+        print(all_text_data)
+        for i in range(len(all_text_data)):
+            all_text_data[i] = self.translate_to_id(all_text_data[i])
+        return all_text_data
 
     # check if report is valid (18 checks? some can be skipped)
     def validate(self):
@@ -433,7 +513,7 @@ class Ui_RaportWindow(object):
 
         self.rs.add_report(self.KM_to_place.toPlainText(),
                            self.accident_type.toPlainText(),
-                           self.at_place_date.dateTime().toString('HH:mm'),
+                           self.at_place_date.dateTime().toString('dd-MM-yyyy'),
                            self.at_place_hour.dateTime().toString('HH:mm'),
                            self.counter_state.toPlainText(),
                            self.depot_hour.dateTime().toString('HH:mm'),
@@ -444,7 +524,7 @@ class Ui_RaportWindow(object):
                            self.place_name.toPlainText(),
                            self.return_date.date().toString('dd-MM-yyyy'),
                            self.return_hour.dateTime().toString('HH:mm'),
-                           ["addtest"],
+                           self.get_selected_members_ids(),
                            sl_id,
                            0,
                            al_id,

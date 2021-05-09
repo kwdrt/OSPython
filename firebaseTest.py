@@ -48,6 +48,8 @@ reportService = fU.ReportService()
 # stan licznika
 # KM do miejsca zdarzenia
 
+# TODO: to refator into a PDF class in new file
+"""
 printed_report = reportService.get_report_data("-MXrGrD-KriOFQsiUMf3")
 print(printed_report)
 
@@ -119,3 +121,6 @@ single_data(pdf, "KM do miejsca zdarzenia", str(printed_report.get("KM_to_place"
 
 pdf.output("testraport.pdf")
 
+"""
+
+print(reportService.get_report_id_by_fields("01-01-2000,00:00,Niebieska 1"))

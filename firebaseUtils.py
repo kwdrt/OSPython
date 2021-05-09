@@ -97,7 +97,6 @@ class PersonService:
     def get_person_by_id(self, id):
         return self.db.child("OSP").child("People").child(id).get().val()
 
-
 class ReportService:
     def __init__(self):
         self.firebase = Firebase(config)
@@ -110,6 +109,20 @@ class ReportService:
     def get_report_data(self, report_id):
         report = self.db.child("OSP").child("Reports").child(report_id).get()
         return report.val()
+
+    def get_report_id_by_fields(self, report_string):
+        report_details = report_string.split(",")
+        all_reports = self.get_all_reports()
+        report_id = None
+
+        for key, i in all_reports.items():
+            if i is not None:
+                if i.get('at_place_date') == report_details[0] \
+                        and i.get('at_place_hour') == report_details[1] \
+                        and i.get('place_name') == report_details[2]:
+                    report_id = key
+                    break
+        return report_id
 
     def add_report(self, km_to_place, accident_type, at_place_date, at_place_hour, counter_state, depot_hour,
                    injured, out_date, out_hour, perpetrator, place_name, return_date, return_hour, section_current,
