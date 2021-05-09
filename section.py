@@ -12,9 +12,15 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_SectionWindow(object):
+    def __init__(self):
+        self.rs = None
+        self.ps = None
+        self.all_members = None
+
     def setupUi(self, SectionWindow):
         SectionWindow.setObjectName("SectionWindow")
         SectionWindow.resize(800, 600)
+        SectionWindow.setFixedSize(800, 600)
         self.centralwidget = QtWidgets.QWidget(SectionWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.line = QtWidgets.QFrame(self.centralwidget)
@@ -42,67 +48,85 @@ class Ui_SectionWindow(object):
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(10, 150, 131, 16))
         self.label_3.setObjectName("label_3")
-        self.plainTextEdit = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.plainTextEdit.setGeometry(QtCore.QRect(10, 170, 381, 21))
-        self.plainTextEdit.setObjectName("plainTextEdit")
-        self.plainTextEdit_2 = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.plainTextEdit_2.setGeometry(QtCore.QRect(10, 230, 381, 21))
-        self.plainTextEdit_2.setObjectName("plainTextEdit_2")
+        self.new_member_name = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.new_member_name.setGeometry(QtCore.QRect(10, 170, 381, 21))
+        self.new_member_name.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.new_member_name.setObjectName("new_member_name")
+        self.new_member_lastname = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.new_member_lastname.setGeometry(QtCore.QRect(10, 230, 381, 21))
+        self.new_member_lastname.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.new_member_lastname.setObjectName("new_member_lastname")
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
         self.label_4.setGeometry(QtCore.QRect(10, 210, 131, 16))
         self.label_4.setObjectName("label_4")
-        self.checkBox = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox.setGeometry(QtCore.QRect(30, 280, 121, 17))
-        self.checkBox.setObjectName("checkBox")
-        self.checkBox_2 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_2.setGeometry(QtCore.QRect(30, 310, 151, 17))
-        self.checkBox_2.setObjectName("checkBox_2")
-        self.checkBox_3 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_3.setGeometry(QtCore.QRect(30, 340, 141, 17))
-        self.checkBox_3.setObjectName("checkBox_3")
-        self.plainTextEdit_3 = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.plainTextEdit_3.setGeometry(QtCore.QRect(410, 230, 381, 21))
-        self.plainTextEdit_3.setObjectName("plainTextEdit_3")
-        self.plainTextEdit_4 = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.plainTextEdit_4.setGeometry(QtCore.QRect(410, 170, 381, 21))
-        self.plainTextEdit_4.setObjectName("plainTextEdit_4")
-        self.checkBox_4 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_4.setGeometry(QtCore.QRect(430, 340, 141, 17))
-        self.checkBox_4.setObjectName("checkBox_4")
+        self.new_section_leader = QtWidgets.QCheckBox(self.centralwidget)
+        self.new_section_leader.setGeometry(QtCore.QRect(30, 320, 121, 17))
+        self.new_section_leader.setObjectName("new_section_leader")
+        self.new_action_leader = QtWidgets.QCheckBox(self.centralwidget)
+        self.new_action_leader.setGeometry(QtCore.QRect(30, 350, 151, 17))
+        self.new_action_leader.setObjectName("new_action_leader")
+        self.new_driver = QtWidgets.QCheckBox(self.centralwidget)
+        self.new_driver.setGeometry(QtCore.QRect(30, 380, 141, 17))
+        self.new_driver.setObjectName("new_driver")
+        self.member_lastname = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.member_lastname.setGeometry(QtCore.QRect(410, 230, 381, 21))
+        self.member_lastname.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.member_lastname.setObjectName("member_lastname")
+        self.member_name = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.member_name.setGeometry(QtCore.QRect(410, 170, 381, 21))
+        self.member_name.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.member_name.setObjectName("member_name")
+        self.driver = QtWidgets.QCheckBox(self.centralwidget)
+        self.driver.setGeometry(QtCore.QRect(420, 380, 141, 17))
+        self.driver.setObjectName("driver")
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
         self.label_5.setGeometry(QtCore.QRect(410, 210, 131, 16))
         self.label_5.setObjectName("label_5")
-        self.checkBox_5 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_5.setGeometry(QtCore.QRect(430, 280, 121, 17))
-        self.checkBox_5.setObjectName("checkBox_5")
+        self.section_leader = QtWidgets.QCheckBox(self.centralwidget)
+        self.section_leader.setGeometry(QtCore.QRect(420, 320, 121, 17))
+        self.section_leader.setObjectName("section_leader")
         self.label_6 = QtWidgets.QLabel(self.centralwidget)
         self.label_6.setGeometry(QtCore.QRect(410, 150, 131, 16))
         self.label_6.setObjectName("label_6")
-        self.checkBox_6 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_6.setGeometry(QtCore.QRect(430, 310, 151, 17))
-        self.checkBox_6.setObjectName("checkBox_6")
-        self.comboBox = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBox.setGeometry(QtCore.QRect(450, 110, 281, 22))
-        self.comboBox.setObjectName("comboBox")
+        self.action_leader = QtWidgets.QCheckBox(self.centralwidget)
+        self.action_leader.setGeometry(QtCore.QRect(420, 350, 151, 17))
+        self.action_leader.setObjectName("action_leader")
+        self.person_to_edit = QtWidgets.QComboBox(self.centralwidget)
+        self.person_to_edit.setGeometry(QtCore.QRect(450, 110, 281, 22))
+        self.person_to_edit.setObjectName("person_to_edit")
         self.label_7 = QtWidgets.QLabel(self.centralwidget)
         self.label_7.setGeometry(QtCore.QRect(510, 90, 171, 16))
         self.label_7.setAlignment(QtCore.Qt.AlignCenter)
         self.label_7.setObjectName("label_7")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(500, 450, 201, 41))
+        self.update_member = QtWidgets.QPushButton(self.centralwidget)
+        self.update_member.setGeometry(QtCore.QRect(500, 470, 201, 41))
         font = QtGui.QFont()
         font.setPointSize(16)
-        self.pushButton.setFont(font)
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_3.setGeometry(QtCore.QRect(90, 450, 231, 41))
+        self.update_member.setFont(font)
+        self.update_member.setObjectName("update_member")
+        self.add_new_member = QtWidgets.QPushButton(self.centralwidget)
+        self.add_new_member.setGeometry(QtCore.QRect(80, 470, 231, 41))
         font = QtGui.QFont()
         font.setPointSize(16)
-        self.pushButton_3.setFont(font)
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.checkBox_7 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_7.setGeometry(QtCore.QRect(430, 370, 141, 17))
-        self.checkBox_7.setObjectName("checkBox_7")
+        self.add_new_member.setFont(font)
+        self.add_new_member.setObjectName("add_new_member")
+        self.is_active = QtWidgets.QCheckBox(self.centralwidget)
+        self.is_active.setGeometry(QtCore.QRect(420, 410, 141, 17))
+        self.is_active.setObjectName("is_active")
+        self.label_8 = QtWidgets.QLabel(self.centralwidget)
+        self.label_8.setGeometry(QtCore.QRect(10, 260, 131, 16))
+        self.label_8.setObjectName("label_8")
+        self.new_member_phone = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.new_member_phone.setGeometry(QtCore.QRect(10, 280, 381, 21))
+        self.new_member_phone.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.new_member_phone.setObjectName("new_member_phone")
+        self.label_9 = QtWidgets.QLabel(self.centralwidget)
+        self.label_9.setGeometry(QtCore.QRect(410, 260, 131, 16))
+        self.label_9.setObjectName("label_9")
+        self.member_phone = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.member_phone.setGeometry(QtCore.QRect(410, 280, 381, 21))
+        self.member_phone.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.member_phone.setObjectName("member_phone")
         SectionWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(SectionWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
@@ -117,24 +141,98 @@ class Ui_SectionWindow(object):
 
     def retranslateUi(self, SectionWindow):
         _translate = QtCore.QCoreApplication.translate
-        SectionWindow.setWindowTitle(_translate("SectionWindow", "MainWindow"))
+        SectionWindow.setWindowTitle(_translate("SectionWindow", "Sekcja"))
         self.pushButton_2.setText(_translate("SectionWindow", "Powrót do menu"))
         self.label.setText(_translate("SectionWindow", "Dodaj członka sekcji"))
         self.label_2.setText(_translate("SectionWindow", "Zmień dane członka sekcji"))
         self.label_3.setText(_translate("SectionWindow", "Imię"))
         self.label_4.setText(_translate("SectionWindow", "Nazwisko"))
-        self.checkBox.setText(_translate("SectionWindow", "Dowódca sekcji"))
-        self.checkBox_2.setText(_translate("SectionWindow", "Może być dowódcą akcji"))
-        self.checkBox_3.setText(_translate("SectionWindow", "Może być kierowcą"))
-        self.checkBox_4.setText(_translate("SectionWindow", "Może być kierowcą"))
+        self.new_section_leader.setText(_translate("SectionWindow", "Dowódca sekcji"))
+        self.new_action_leader.setText(_translate("SectionWindow", "Może być dowódcą akcji"))
+        self.new_driver.setText(_translate("SectionWindow", "Może być kierowcą"))
+        self.driver.setText(_translate("SectionWindow", "Może być kierowcą"))
         self.label_5.setText(_translate("SectionWindow", "Nazwisko"))
-        self.checkBox_5.setText(_translate("SectionWindow", "Dowódca sekcji"))
+        self.section_leader.setText(_translate("SectionWindow", "Dowódca sekcji"))
         self.label_6.setText(_translate("SectionWindow", "Imię"))
-        self.checkBox_6.setText(_translate("SectionWindow", "Może być dowódcą akcji"))
+        self.action_leader.setText(_translate("SectionWindow", "Może być dowódcą akcji"))
         self.label_7.setText(_translate("SectionWindow", "Wybierz członka sekcji do edycji"))
-        self.pushButton.setText(_translate("SectionWindow", "Zaktualizuj dane"))
-        self.pushButton_3.setText(_translate("SectionWindow", "Dodaj członka sekcji"))
-        self.checkBox_7.setText(_translate("SectionWindow", "Członek nieaktywny"))
+        self.update_member.setText(_translate("SectionWindow", "Zaktualizuj dane"))
+        self.add_new_member.setText(_translate("SectionWindow", "Dodaj członka sekcji"))
+        self.is_active.setText(_translate("SectionWindow", "Członek aktywny"))
+        self.label_8.setText(_translate("SectionWindow", "Numer telefonu"))
+        self.label_9.setText(_translate("SectionWindow", "Numer telefonu"))
+
+        #block added starts here
+
+        self.person_to_edit.currentTextChanged.connect(lambda: self.set_active_info())
+        self.update_member.clicked.connect(lambda: self.update_member_data())
+        self.add_new_member.clicked.connect(lambda: self.add_member_data())
+
+
+    def translate_to_id(self, text):
+        person_details = text.split(",")
+        p_len = len(person_details)
+        p_num = person_details[p_len - 1]
+        p_last = person_details[p_len - 2]
+        p_first = ""
+        for i in range(0, p_len - 2):
+            p_first += person_details[i]
+        return self.ps.check_person_existence(p_first, p_last, int(p_num))
+
+    def add_all_people(self):
+        all_people = self.ps.get_all_people()
+        for key, i in all_people.items():
+            if i is not None:
+                self.person_to_edit.addItem(i.get("FirstName") + "," + i.get("LastName") + "," + str(i.get("PhoneNumber")))
+
+    def set_active_info(self):
+        chosen_person = self.person_to_edit.currentText()
+        print(chosen_person)
+        chosen_person_id = self.translate_to_id(chosen_person)
+        chosen_person_data = self.ps.get_person_by_id(chosen_person_id)
+        print(chosen_person_data)
+        self.member_name.setPlainText(chosen_person_data.get("FirstName"))
+        self.member_lastname.setPlainText(chosen_person_data.get("LastName"))
+        self.member_phone.setPlainText(str(chosen_person_data.get("PhoneNumber")))
+        self.section_leader.setChecked(chosen_person_data.get("IsSectionLeader"))
+        self.action_leader.setChecked(chosen_person_data.get("IsActionLeader"))
+        self.driver.setChecked(chosen_person_data.get("IsDriver"))
+        self.is_active.setChecked(chosen_person_data.get("IsActive"))
+
+
+    def update_member_data(self):
+        chosen_person = self.person_to_edit.currentText()
+        print(chosen_person)
+        chosen_person_id = self.translate_to_id(chosen_person)
+
+        self.ps.change_person_data(chosen_person_id,
+                                   self.member_name.toPlainText(), 
+                                   self.member_lastname.toPlainText(), 
+                                   int(self.member_phone.toPlainText()),
+                                   int(self.is_active.isChecked()),
+                                   int(self.driver.isChecked()),
+                                   int(self.action_leader.isChecked()),
+                                   int(self.section_leader.isChecked()))
+
+        new_person_data = self.member_name.toPlainText() + "," + self.member_lastname.toPlainText() + "," + self.member_phone.toPlainText()
+        self.person_to_edit.setItemText(self.person_to_edit.currentIndex(), new_person_data)
+
+    def add_member_data(self):
+        self.ps.add_person(
+            self.new_member_name.toPlainText(),
+            self.new_member_lastname.toPlainText(),
+            int(self.new_action_leader.isChecked()),
+            1,
+            int(self.new_driver.isChecked()),
+            int(self.new_section_leader.isChecked()),
+            int(self.new_member_phone.toPlainText()))
+
+        new_person_data = self.new_member_name.toPlainText() + "," + self.new_member_lastname.toPlainText() + "," + self.new_member_phone.toPlainText()
+        self.person_to_edit.addItem(new_person_data)
+
 
     def refresh(self):
         pass
+
+
+

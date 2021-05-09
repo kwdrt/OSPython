@@ -48,6 +48,8 @@ class SectionWindow(QtWidgets.QMainWindow, Ui_SectionWindow):
         # roll into prepare()
         self.ps = ps
         self.rs = rs
+        self.people_list = ps.get_all_people()
+        self.add_all_people()
 
 
 

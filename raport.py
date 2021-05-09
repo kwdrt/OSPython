@@ -24,6 +24,7 @@ class Ui_RaportWindow(object):
     def setupUi(self, RaportWindow):
         RaportWindow.setObjectName("RaportWindow")
         RaportWindow.resize(935, 933)
+        RaportWindow.setFixedSize(935, 933)
         self.centralwidget = QtWidgets.QWidget(RaportWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.line = QtWidgets.QFrame(self.centralwidget)
@@ -259,7 +260,7 @@ class Ui_RaportWindow(object):
 
     def retranslateUi(self, RaportWindow):
         _translate = QtCore.QCoreApplication.translate
-        RaportWindow.setWindowTitle(_translate("RaportWindow", "MainWindow"))
+        RaportWindow.setWindowTitle(_translate("RaportWindow", "Raporty"))
         self.label.setText(_translate("RaportWindow", "Data wyjazdu"))
         self.label_2.setText(_translate("RaportWindow", "Data na miejscu"))
         self.label_3.setText(_translate("RaportWindow", "Miejsce zdarzenia"))
@@ -390,13 +391,9 @@ class Ui_RaportWindow(object):
     #gets id of chosen person from data in UI element, should return None if not found (should not happen in usage)
     def translate_to_id(self, text):
         person_details = text.split(",")
-        print(person_details)
         p_len = len(person_details)
-        print(str(p_len))
         p_num = person_details[p_len - 1]
-        print(p_num)
         p_last = person_details[p_len - 2]
-        print(p_last)
         p_first = ""
         for i in range(0, p_len - 2):
             p_first += person_details[i]

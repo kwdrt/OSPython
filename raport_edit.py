@@ -24,6 +24,7 @@ class Ui_RaportEditWindow(object):
     def setupUi(self, RaportEditWindow):
         RaportEditWindow.setObjectName("RaportEditWindow")
         RaportEditWindow.resize(591, 920)
+        RaportEditWindow.setFixedSize(591, 920)
         self.centralwidget = QtWidgets.QWidget(RaportEditWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label_17 = QtWidgets.QLabel(self.centralwidget)
@@ -201,7 +202,7 @@ class Ui_RaportEditWindow(object):
 
     def retranslateUi(self, RaportEditWindow):
         _translate = QtCore.QCoreApplication.translate
-        RaportEditWindow.setWindowTitle(_translate("RaportEditWindow", "MainWindow"))
+        RaportEditWindow.setWindowTitle(_translate("RaportEditWindow", "Edycja raportu"))
         self.label_17.setText(_translate("RaportEditWindow", "Dowódca akcji"))
         self.label.setText(_translate("RaportEditWindow", "Data wyjazdu"))
         self.label_2.setText(_translate("RaportEditWindow", "Data na miejscu"))
@@ -230,6 +231,9 @@ class Ui_RaportEditWindow(object):
         self.out_date.setDate(QDate.currentDate())
         self.at_place_date.setDate(QDate.currentDate())
         self.return_date.setDate(QDate.currentDate())
+        self.all_members.itemClicked.connect(lambda: self.pick_person_all())
+        self.section_current.itemClicked.connect(lambda: self.pick_person_current())
+        self.all_members.itemClicked.connect(lambda: self.get_selected_members_ids())
 
 
     # delete everything, set default values
@@ -288,7 +292,7 @@ class Ui_RaportEditWindow(object):
         all_people = self.ps.get_all_people()
         for key, i in all_people.items():
             if i is not None:
-                self.all_members.addItem(i.get("FirstName") + i.get("LastName") + str(i.get("PhoneNumber")))
+                self.all_members.addItem(i.get("FirstName") + "," + i.get("LastName") + "," + str(i.get("PhoneNumber")))
 
 
     # sets date values to current ones
@@ -311,17 +315,6 @@ class Ui_RaportEditWindow(object):
             self.ui_element.addItem(
                 person.get("FirstName") + "," + person.get("LastName") + "," + str(person.get("PhoneNumber")))
 
-    # gets id of chosen person from data in UI element, should return None if not found (should not happen in usage)
-    def translate_to_id(self, ui_element):
-        person_details = self.ui_element.currentText()
-        person_details = person_details.split(",")
-        p_len = len(person_details)
-        p_num = person_details[p_len - 1]
-        p_last = person_details[p_len - 2]
-        p_first = ""
-        for i in range(0, p_len - 2):
-            p_first += person_details[i]
-        return self.ps.check_person_existence(p_first, p_last, int(p_num))
 
     # end of these
 
@@ -341,9 +334,36 @@ class Ui_RaportEditWindow(object):
             self.section_leader_id.addItem(
                 sleader.get("FirstName") + "," + sleader.get("LastName") + "," + str(sleader.get("PhoneNumber")))
 
+    def translate_to_id(self, text):
+        person_details = text.split(",")
+        p_len = len(person_details)
+        p_num = person_details[p_len - 1]
+        p_last = person_details[p_len - 2]
+        p_first = ""
+        for i in range(0, p_len - 2):
+            p_first += person_details[i]
+        return self.ps.check_person_existence(p_first, p_last, int(p_num))
 
+    def pick_person_all(self):
+        person_picked = self.all_members.currentItem().text()
+        print(person_picked)
 
+        self.all_members.model().removeRow(self.all_members.currentRow())
+        self.section_current.addItem(person_picked)
 
+    def pick_person_current(self):
+        person_picked = self.section_current.currentItem().text()
+        print(person_picked)
+
+        self.section_current.model().removeRow(self.section_current.currentRow())
+        self.all_members.addItem(person_picked)
+
+    def get_selected_members_ids(self):
+        all_text_data = [str(self.section_current.item(i).text()) for i in range(self.section_current.count())]
+        print(all_text_data)
+        for i in range(len(all_text_data)):
+            all_text_data[i] = self.translate_to_id(all_text_data[i])
+        return all_text_data
 
     # should be nearly the same as in raport.py
     def validate(self):
