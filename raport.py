@@ -305,7 +305,7 @@ class Ui_RaportWindow(object):
         self.section_current.itemClicked.connect(lambda: self.pick_person_current())
         self.all_members.itemClicked.connect(lambda: self.get_selected_members_ids())
 
-    #report data view helpers
+    # report data view helpers
     def id_to_text(self, ps, id):
         person = ps.get_person_by_id(id)
         person_data = person.get("FirstName") + " " + person.get("LastName")
@@ -320,18 +320,17 @@ class Ui_RaportWindow(object):
             print("Empty section")
         return section_string
 
-
-    #WORKS, JUST CHECK IF REPORT HAS CORRECT KEYS!!!!!!!
+    # WORKS, JUST CHECK IF REPORT HAS CORRECT KEYS!!!!!!!
     def selection_changed(self):
-        #DEBUG PRINTOUTS REMOVE LATER
+        # DEBUG PRINTOUTS REMOVE LATER
         chosen_report = self.report_list_search.currentItem().text()
         print("Selected report data --  " + chosen_report)
 
         chosen_report_id = self.rs.get_report_id_by_fields(chosen_report)
         print("Selected report id -- " + chosen_report_id)
-        
+
         chosen_report_data = self.rs.get_report_data(chosen_report_id)
-        
+
         printed_data = ""
         printed_data += "Data wyjazdu: " + chosen_report_data.get("out_date") + "\n"
         printed_data += "Godzina wyjazdu: " + chosen_report_data.get("out_hour") + "\n"
@@ -339,8 +338,10 @@ class Ui_RaportWindow(object):
         printed_data += "Rodzaj zdarzenia: " + chosen_report_data.get("accident_type") + "\n"
         printed_data += "Miejsce zdarzenia: " + chosen_report_data.get("place_name") + "\n\n"
         print(printed_data)
-        printed_data += "Skład sekcji: " + "\n" + self.section_to_string(self.ps, chosen_report_data.get("section_current")) + "\n"
-        printed_data += "Dowódca sekcji: " + self.id_to_text(self.ps, chosen_report_data.get("section_leader_id")) + "\n"
+        printed_data += "Skład sekcji: " + "\n" + self.section_to_string(self.ps, chosen_report_data.get(
+            "section_current")) + "\n"
+        printed_data += "Dowódca sekcji: " + self.id_to_text(self.ps,
+                                                             chosen_report_data.get("section_leader_id")) + "\n"
         printed_data += "Dowódca akcji: " + self.id_to_text(self.ps, chosen_report_data.get("action_leader_id")) + "\n"
         printed_data += "Kierowca: " + self.id_to_text(self.ps, chosen_report_data.get("driver_id")) + "\n"
         printed_data += "Sprawca: " + chosen_report_data.get("perpetrator") + "\n"
@@ -351,11 +352,10 @@ class Ui_RaportWindow(object):
         printed_data += "Godzina w remizie: " + chosen_report_data.get("depot_hour") + "\n"
         printed_data += "Stan licznika: " + chosen_report_data.get("counter_state") + "\n"
         printed_data += "KM do miejsca zdarzenia: " + str(chosen_report_data.get("KM_to_place")) + "\n"
-        
+
         print(printed_data)
 
         self.action_details.setText(printed_data)
-
 
     def pick_person_all(self):
         person_picked = self.all_members.currentItem().text()
@@ -377,18 +377,15 @@ class Ui_RaportWindow(object):
             if i is not None:
                 self.all_members.addItem(i.get("FirstName") + "," + i.get("LastName") + "," + str(i.get("PhoneNumber")))
 
+    # to get rid of repeating instructions
 
-
-
-    #to get rid of repeating instructions
-
-    #adds all elements to the UI item, can expand with refresh of the list later
+    # adds all elements to the UI item, can expand with refresh of the list later
     def set_all(self, list_all, ui_element):
         for person in list_all:
             self.ui_element.addItem(
                 person.get("FirstName") + "," + person.get("LastName") + "," + str(person.get("PhoneNumber")))
 
-    #gets id of chosen person from data in UI element, should return None if not found (should not happen in usage)
+    # gets id of chosen person from data in UI element, should return None if not found (should not happen in usage)
     def translate_to_id(self, text):
         person_details = text.split(",")
         p_len = len(person_details)
@@ -400,7 +397,6 @@ class Ui_RaportWindow(object):
         return self.ps.check_person_existence(p_first, p_last, int(p_num))
 
     # end of these
-
 
     # next three can be replaced with set_all
     def set_all_drivers(self):
@@ -432,7 +428,6 @@ class Ui_RaportWindow(object):
         self.clean_window()
         # should load drivers etc again here
 
-
     # sets date values to current ones
     def set_current_values(self):
         self.out_date.setDate(QDate.currentDate())
@@ -448,13 +443,12 @@ class Ui_RaportWindow(object):
 
         # get list of all?
 
-
     def get_all_reports(self):
         all_reports = self.rs.get_all_reports()
         for key, i in all_reports.items():
             if i is not None:
-                self.report_list_search.addItem(i.get("at_place_date") + "," + i.get("at_place_hour") + "," + i.get("place_name"))
-
+                self.report_list_search.addItem(
+                    i.get("at_place_date") + "," + i.get("at_place_hour") + "," + i.get("place_name"))
 
     def get_selected_members_ids(self):
         all_text_data = [str(self.section_current.item(i).text()) for i in range(self.section_current.count())]
@@ -467,6 +461,10 @@ class Ui_RaportWindow(object):
     def validate(self):
         pass
 
+    def refresh_reports_list(self):
+        self.report_list_search.clear()
+        self.get_all_reports()
+
     # add report with current data
     def add_report(self):
         # print(self.KM_to_place.toPlainText())
@@ -477,7 +475,7 @@ class Ui_RaportWindow(object):
 
         # get id of driver, section leader, action leader
 
-        #next three blocks can be replaced with translate_to_id call
+        # next three blocks can be replaced with translate_to_id call
         driver_details = self.driver_id.currentText()
         dd = driver_details.split(",")
         d_len = len(dd)
@@ -527,3 +525,5 @@ class Ui_RaportWindow(object):
                            al_id,
                            d_id,
                            self.accident_type_2.toPlainText())
+
+        self.refresh_reports_list()
