@@ -82,12 +82,15 @@ class PDFgen:
         self.single_data(self.pdf, "Stan licznika", self.printed_report.get("counter_state"))
         self.single_data(self.pdf, "KM do miejsca zdarzenia", str(self.printed_report.get("KM_to_place")))
 
+        parsed_hour = self.printed_report.get("out_hour")
+        parsed_hour = parsed_hour.replace(":", "-")
 
+        report_name = "Raport" + "-" + self.printed_report.get("out_date") + "--" + parsed_hour + ".pdf"
 
-        self.pdf.output("testraport.pdf")
+        self.pdf.output(report_name)
 
 
 #test block of code with example call
-#ps = fU.PersonService()
-#rs = fU.ReportService()
-#PDFgen("-MXrGrD-KriOFQsiUMf3", ps, rs)
+ps = fU.PersonService()
+rs = fU.ReportService()
+PDFgen("-MXrGrD-KriOFQsiUMf3", ps, rs)
