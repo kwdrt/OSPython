@@ -299,6 +299,8 @@ class Ui_RaportWindow(object):
         self.at_place_date.setDate(QDate.currentDate())
         self.at_place_date_search.setDate(QDate.currentDate())
         self.return_date.setDate(QDate.currentDate())
+        self.edit_report_button.setDisabled(True)
+        self.generate_report_button.setDisabled(True)
         self.add_report_button.clicked.connect(lambda: self.add_report())
         self.report_list_search.itemSelectionChanged.connect(lambda: self.selection_changed())
         self.all_members.itemClicked.connect(lambda: self.pick_person_all())
@@ -323,6 +325,8 @@ class Ui_RaportWindow(object):
     # WORKS, JUST CHECK IF REPORT HAS CORRECT KEYS!!!!!!!
     def selection_changed(self):
         # DEBUG PRINTOUTS REMOVE LATER
+        self.edit_report_button.setEnabled(True)
+        self.generate_report_button.setEnabled(True)
         chosen_report = self.report_list_search.currentItem().text()
         print("Selected report data --  " + chosen_report)
 
