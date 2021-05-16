@@ -234,5 +234,9 @@ class Ui_SectionWindow(object):
     def refresh(self):
         pass
 
+    def giveValue(self):
+        pass
+    def getValue(self, report_id):
+        pass
 
 

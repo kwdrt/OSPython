@@ -71,6 +71,7 @@ class RaportEditWindow(QtWidgets.QMainWindow, Ui_RaportEditWindow):
 
 
 def switch_window(currentWindow, newWindow):
+    newWindow.getValue(currentWindow.giveValue())
     currentWindow.close()
     # T O D O update of new window data before switch
     newWindow.refresh()

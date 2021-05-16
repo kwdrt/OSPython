@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QDate, QTime
-
+import PDFgen as PDFgenerator
 
 class Ui_RaportWindow(object):
     def __init__(self):
@@ -306,6 +306,14 @@ class Ui_RaportWindow(object):
         self.all_members.itemClicked.connect(lambda: self.pick_person_all())
         self.section_current.itemClicked.connect(lambda: self.pick_person_current())
         self.all_members.itemClicked.connect(lambda: self.get_selected_members_ids())
+        self.generate_report_button.clicked.connect(lambda: self.generate_chosen_pdf())
+
+    def generate_chosen_pdf(self):
+        chosen_report = self.report_list_search.currentItem().text()
+        chosen_report_id = self.rs.get_report_id_by_fields(chosen_report)
+        if chosen_report_id is not None:
+            PDFgenerator.PDFgen(chosen_report_id, self.ps, self.rs)
+
 
     # report data view helpers
     def id_to_text(self, ps, id):
@@ -531,3 +539,11 @@ class Ui_RaportWindow(object):
                            self.accident_type_2.toPlainText())
 
         self.refresh_reports_list()
+
+
+    def giveValue(self):
+        chosen_report = self.report_list_search.currentItem().text()
+        return self.rs.get_report_id_by_fields(chosen_report)
+        pass
+    def getValue(self, report_id):
+        pass

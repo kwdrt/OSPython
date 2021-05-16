@@ -91,6 +91,6 @@ class PDFgen:
 
 
 #test block of code with example call
-ps = fU.PersonService()
-rs = fU.ReportService()
-PDFgen("-MXrGrD-KriOFQsiUMf3", ps, rs)
+#ps = fU.PersonService()
+#rs = fU.ReportService()
+#PDFgen("-MXrGrD-KriOFQsiUMf3", ps, rs)

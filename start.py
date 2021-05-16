@@ -76,3 +76,8 @@ class Ui_MainWindow(object):
     # nothing to add here, start does not need a refresh
     def refresh(self):
         pass
+
+    def giveValue(self):
+        pass
+    def getValue(self, report_id):
+        pass

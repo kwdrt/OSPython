@@ -20,6 +20,7 @@ class Ui_RaportEditWindow(object):
         self.aleader_list = None
         self.sleader_list = None
         self.def_time = QTime(00, 00, 0)
+        self.report_id = None
 
     def setupUi(self, RaportEditWindow):
         RaportEditWindow.setObjectName("RaportEditWindow")
@@ -239,22 +240,17 @@ class Ui_RaportEditWindow(object):
     # delete everything, set default values
     def clean_window(self):
         # current date where it should be
-        self.set_current_values()
+        #self.set_current_values()
 
         self.driver_list = None
         self.aleader_list = None
         self.sleader_list = None
 
-
-        self.out_hour.setTime(self.def_time)
-        self.at_place_hour.setTime(self.def_time)
         self.place_name.clear()
         self.accident_type.clear()
         self.injured.clear()
         self.perpetrator.clear()
         self.accident_type_2.clear()
-        self.return_hour.setTime(self.def_time)
-        self.depot_hour.setTime(self.def_time)
         self.counter_state.clear()
         self.KM_to_place.clear()
         self.section_current.clear()
@@ -262,28 +258,68 @@ class Ui_RaportEditWindow(object):
         self.section_leader_id.clear()
         self.action_leader_id.clear()
         self.driver_id.clear()
-        self.close_report.setCheckState(False)
-
-        self.set_report_values()
 
         # to check if all is covered
 
+    def prepare_window(self):
+        #self.report_id
+        # self.member_name.setPlainText(chosen_person_data.get("FirstName"))
+        # self.member_lastname.setPlainText(chosen_person_data.get("LastName"))
+        # self.member_phone.setPlainText(str(chosen_person_data.get("PhoneNumber")))
+        # self.section_leader.setChecked(chosen_person_data.get("IsSectionLeader"))
+        # self.action_leader.setChecked(chosen_person_data.get("IsActionLeader"))
+        # self.driver.setChecked(chosen_person_data.get("IsDriver"))
+        # self.is_active.setChecked(chosen_person_data.get("IsActive"))
+
+        if self.report_id is None:
+            print("Bad id given")
+            self.update_report_button.setDisabled(True)
+        else:
+            report_data = self.rs.get_report_data(self.report_id)
+            if report_data is None:
+                print("Bad data given")
+                self.update_report_button.setDisabled(True)
+            else:
+                #set fields to correct chosen report values
+                self.out_date.setDate(QDate.fromString(report_data.get("out_date"), "dd-MM-yyyy"))
+                self.out_hour.setTime(QTime.fromString(report_data.get("out_hour"), "HH:mm"))
+                self.at_place_date.setDate(QDate.fromString(report_data.get("at_place_date"), "dd-MM-yyyy"))
+                self.at_place_hour.setTime(QTime.fromString(report_data.get("at_place_hour"), "HH:mm"))
+                self.place_name.setPlainText(report_data.get("place_name"))
+                self.accident_type.setPlainText(report_data.get("accident_type"))
+                self.injured.setPlainText(report_data.get("injured"))
+                self.perpetrator.setPlainText(report_data.get("perpetrator"))
+                self.accident_type_2.setPlainText(report_data.get("details"))
+                self.return_date.setDate(QDate.fromString(report_data.get("return_date"), "dd-MM-yyyy"))
+                self.return_hour.setTime(QTime.fromString(report_data.get("return_hour"), "HH:mm"))
+                self.depot_hour.setTime(QTime.fromString(report_data.get("depot_hour"), "HH:mm"))
+                self.counter_state.setPlainText(report_data.get("counter_state"))
+                self.KM_to_place.setPlainText(report_data.get("KM_to_place"))
+                ##sekcja potem
+
+                ##
+                self.close_report.setChecked(False)
+
+                pass
+
+        pass
 
     # to call just before window switch
     def refresh(self):
         self.clean_window()
+        self.prepare_window()
         # add loading things afterwards (people etc)
 
         # T O D O get chosen report data
 
         # will be rolled in a function?
-        self.driver_list = self.ps.get_drivers()
-        self.set_all_drivers()
-        self.sleader_list = self.ps.get_section_leaders()
-        self.set_all_sleaders()
-        self.aleader_list = self.ps.get_action_leaders()
-        self.set_all_aleaders()
-        self.add_all_people()
+        # self.driver_list = self.ps.get_drivers()
+        # self.set_all_drivers()
+        # self.sleader_list = self.ps.get_section_leaders()
+        # self.set_all_sleaders()
+        # self.aleader_list = self.ps.get_action_leaders()
+        # self.set_all_aleaders()
+        # self.add_all_people()
 
         # need a function to add the person from selected report to the lists, if he isn't there already
 
@@ -301,8 +337,6 @@ class Ui_RaportEditWindow(object):
         self.at_place_date.setDate(QDate.currentDate())
         self.return_date.setDate(QDate.currentDate())
 
-    def set_report_values(self):
-        pass
 
 
     # TEST BLOCK OF CODE FOR SUPPORT OF SETTING LEADER AND SO ON, WILL BE CHANGED
@@ -371,5 +405,11 @@ class Ui_RaportEditWindow(object):
 
     # upload updated report
     def update_report(self):
+        pass
+
+    def giveValue(self):
+        pass
+    def getValue(self, report_id):
+        self.report_id = report_id
         pass
 
