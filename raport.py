@@ -336,10 +336,10 @@ class Ui_RaportWindow(object):
         self.edit_report_button.setEnabled(True)
         self.generate_report_button.setEnabled(True)
         chosen_report = self.report_list_search.currentItem().text()
-        print("Selected report data --  " + chosen_report)
+        #print("Selected report data --  " + chosen_report)
 
         chosen_report_id = self.rs.get_report_id_by_fields(chosen_report)
-        print("Selected report id -- " + chosen_report_id)
+        #print("Selected report id -- " + chosen_report_id)
 
         chosen_report_data = self.rs.get_report_data(chosen_report_id)
 
@@ -365,7 +365,7 @@ class Ui_RaportWindow(object):
         printed_data += "Stan licznika: " + chosen_report_data.get("counter_state") + "\n"
         printed_data += "KM do miejsca zdarzenia: " + str(chosen_report_data.get("KM_to_place")) + "\n"
 
-        print(printed_data)
+        #print(printed_data)
 
         self.action_details.setText(printed_data)
 
@@ -486,6 +486,8 @@ class Ui_RaportWindow(object):
         # print(self.rs)
 
         # get id of driver, section leader, action leader
+
+        #TODO change to translate_to id because now it's bad
 
         # next three blocks can be replaced with translate_to_id call
         driver_details = self.driver_id.currentText()
