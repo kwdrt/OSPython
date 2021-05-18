@@ -309,6 +309,8 @@ class Ui_RaportWindow(object):
         self.section_current.itemClicked.connect(lambda: self.pick_person_current())
         self.all_members.itemClicked.connect(lambda: self.get_selected_members_ids())
         self.generate_report_button.clicked.connect(lambda: self.generate_chosen_pdf())
+        self.place_name_search.textChanged.connect(lambda: self.filter_results())
+
 
     def generate_chosen_pdf(self):
         chosen_report = self.report_list_search.currentItem().text()
@@ -462,6 +464,21 @@ class Ui_RaportWindow(object):
         sorted_list = sorted(sorted_by_time.items(),
                              key=lambda date: datetime.strptime(date[1]["at_place_date"], "%d-%m-%Y"))
         return OrderedDict(sorted_list)
+
+    def filter_by_place(self, all_reports):
+        self.report_list_search.clear()
+
+        for key, i in all_reports.items():
+            if i is not None and ((self.place_name_search.toPlainText().lower() in i.get("place_name").lower())
+                                  or self.place_name_search.toPlainText() == ""):
+                self.report_list_search.addItem(
+                    i.get("at_place_date") + "," + i.get("at_place_hour") + "," + i.get("place_name"))
+
+    def filter_results(self):
+        all_reports = self.rs.get_all_reports()
+        all_reports = self.sort_reports_by_date(all_reports)
+
+        self.filter_by_place(all_reports)
 
     def get_all_reports(self):
         all_reports = self.rs.get_all_reports()
