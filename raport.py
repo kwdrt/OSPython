@@ -309,8 +309,11 @@ class Ui_RaportWindow(object):
         self.section_current.itemClicked.connect(lambda: self.pick_person_current())
         self.all_members.itemClicked.connect(lambda: self.get_selected_members_ids())
         self.generate_report_button.clicked.connect(lambda: self.generate_chosen_pdf())
-        self.place_name_search.textChanged.connect(lambda: self.filter_results())
-
+        self.place_name_search.textChanged.connect(lambda: self.filter_by_place())
+        self.out_date_search.dateChanged.connect(lambda: self.filter_by_out_date())
+        self.out_hour_date.dateTimeChanged.connect(lambda: self.filter_by_out_hour())
+        self.at_place_search.dateTimeChanged.connect(lambda: self.filter_by_at_place_hour())
+        self.at_place_date_search.dateChanged.connect(lambda: self.filter_by_at_place_date())
 
     def generate_chosen_pdf(self):
         chosen_report = self.report_list_search.currentItem().text()
@@ -465,20 +468,47 @@ class Ui_RaportWindow(object):
                              key=lambda date: datetime.strptime(date[1]["at_place_date"], "%d-%m-%Y"))
         return OrderedDict(sorted_list)
 
-    def filter_by_place(self, all_reports):
-        self.report_list_search.clear()
-
+    def filter_by_place(self):
+        all_reports = self.filter_prepare()
         for key, i in all_reports.items():
             if i is not None and ((self.place_name_search.toPlainText().lower() in i.get("place_name").lower())
                                   or self.place_name_search.toPlainText() == ""):
                 self.report_list_search.addItem(
                     i.get("at_place_date") + "," + i.get("at_place_hour") + "," + i.get("place_name"))
 
-    def filter_results(self):
+    def filter_by_out_date(self):
+        all_reports = self.filter_prepare()
+        for key, i in all_reports.items():
+            if i is not None and (self.out_date_search.date().toString('dd-MM-yyyy') == i.get("out_date")):
+                self.report_list_search.addItem(
+                    i.get("at_place_date") + "," + i.get("at_place_hour") + "," + i.get("place_name"))
+
+    def filter_by_out_hour(self):
+        all_reports = self.filter_prepare()
+        for key, i in all_reports.items():
+            if i is not None and (self.out_hour_date.dateTime().toString('HH:mm') == i.get("out_hour")):
+                self.report_list_search.addItem(
+                    i.get("at_place_date") + "," + i.get("at_place_hour") + "," + i.get("place_name"))
+
+    def filter_by_at_place_hour(self):
+        all_reports = self.filter_prepare()
+        for key, i in all_reports.items():
+            if i is not None and (self.at_place_search.dateTime().toString('HH:mm') == i.get("at_place_hour")):
+                self.report_list_search.addItem(
+                    i.get("at_place_date") + "," + i.get("at_place_hour") + "," + i.get("place_name"))
+
+    def filter_by_at_place_date(self):
+        all_reports = self.filter_prepare()
+        for key, i in all_reports.items():
+            if i is not None and (self.at_place_date_search.date().toString('dd-MM-yyyy') == i.get("at_place_date")):
+                self.report_list_search.addItem(
+                    i.get("at_place_date") + "," + i.get("at_place_hour") + "," + i.get("place_name"))
+
+    def filter_prepare(self):
         all_reports = self.rs.get_all_reports()
         all_reports = self.sort_reports_by_date(all_reports)
-
-        self.filter_by_place(all_reports)
+        self.report_list_search.clear()
+        return all_reports
 
     def get_all_reports(self):
         all_reports = self.rs.get_all_reports()
