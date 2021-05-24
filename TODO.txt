@@ -1,16 +1,33 @@
-1. Ogarnąć plik exe (na koniec)
-2. Pamiętać o automatycznym ustawianiu daty i godziny w sekcji raporty na aktualne w systemie (poprawić w paru miejscach jeszcze) -- chyba już ok?
-3. Lista raportów w sekcji archiwum ma się automatycznie wypełniać od najnowszego raportu (wgl bez używania filtrów)
-4. Click swap na listach -- done
-5. Walidacja
-6. Szukanie
-7. PDFy -- done
-8. Wrzucić wyciąganie ID w jedną funkcję -- translate_to_id() chyba jest?
-9. Wszystkie inity w jedną funkcję na klasach
-10. Refresh wartości między przełączeniami -- jest szkielet
-11. Członkowie (ez) -- done
-12. Zmienić nazwy okien w aplikacji z MainView na odpowiednie -- done
-13. (optional) Dodać ocenianie szerokości linii w raporcie pdf. Jeżeli długość przekracza długość max ( będzie wychodzić poza stronę)
-to wybierz metodę long_data a jak nie wychodzi to single_data
-14. Zablokować reskalowanie okna aplikacji -- done
-15. (optional) Dodać do firebase pole "data dodania raportu" - ustawiana z automatu aktualna data w systemie - Później ta data będzie wyświetlana w nagłówku raportu w pdf
+ZROBIONE
+ - Pamiętać o automatycznym ustawianiu daty i godziny w sekcji raporty na aktualne w systemie (poprawić w paru miejscach jeszcze) -- chyba już ok?
+ - Click swap na listach -- done
+ - PDFy -- done
+ - Wrzucić wyciąganie ID w jedną funkcję -- translate_to_id() chyba jest?
+ - Członkowie (ez) -- done
+ - Zmienić nazwy okien w aplikacji z MainView na odpowiednie -- done
+ - Zablokować reskalowanie okna aplikacji -- done
+ - Lista raportów w sekcji archiwum ma się automatycznie wypełniać od najnowszego raportu (wgl bez używania filtrów)
+ - Szukanie
+
+DO ZROBIENIA TODO
+ 1. Walidacja:
+    - nr telefonu w "SEKCJA"
+    - pola wymagane w "dodaj nowy raport":
+        - miejsce zdarzenia
+        - rodzaj zdarzenia
+        - stan licznika
+        - km do miejsca zdarzenia
+        - sekcja na akcji
+        - dowódca sekcji, akcji, kierowca powinni być na liście "sekcja na akcji"
+ 2. Filtry strasznie lagują. Da się coś z tym zrobić ?
+ 3. Wszystkie inity w jedną funkcję na klasach
+ 4. Refresh wartości między przełączeniami (dodać button do refresh) -- po dodaniu nowego członka nie wyświetla się w "wszyscy członkowie sekcji" w "dodaj nowy raport"
+ 5. (optional) Dodać do firebase pole "data dodania raportu" - ustawiana z automatu aktualna data w systemie -
+    Później ta data będzie wyświetlana w nagłówku raportu w pdf (raczej nie potrzebne)
+ 6. Ogarnąć plik exe (na koniec)
+ 7. (optional) Dodać ocenianie szerokości linii w raporcie pdf. Jeżeli długość przekracza długość max ( będzie wychodzić poza stronę)
+    to wybierz metodę long_data a jak nie wychodzi to single_data
+ 8. Refactor
+ 9. Obsługa zamkniętych raportów
+ 10. Obsługa nieaktywnych członków (?)
+ 11. Dodanie sekcji na akcji + "powrót do menu" = bug
