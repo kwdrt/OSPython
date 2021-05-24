@@ -8,10 +8,12 @@ ZROBIONE
  - Zablokować reskalowanie okna aplikacji -- done
  - Lista raportów w sekcji archiwum ma się automatycznie wypełniać od najnowszego raportu (wgl bez używania filtrów)
  - Szukanie
+ - Dodanie sekcji na akcji + "powrót do menu" = bug
 
 DO ZROBIENIA TODO
  1. Walidacja:
     - nr telefonu w "SEKCJA"
+    - pola wymagane w "SEKCJA": imię i nazwisko
     - pola wymagane w "dodaj nowy raport":
         - miejsce zdarzenia
         - rodzaj zdarzenia
@@ -30,4 +32,3 @@ DO ZROBIENIA TODO
  8. Refactor
  9. Obsługa zamkniętych raportów
  10. Obsługa nieaktywnych członków (?)
- 11. Dodanie sekcji na akcji + "powrót do menu" = bug
