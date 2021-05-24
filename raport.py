@@ -599,9 +599,12 @@ class Ui_RaportWindow(object):
         self.refresh_reports_list()
 
     def giveValue(self):
-        chosen_report = self.report_list_search.currentItem().text()
-        return self.rs.get_report_id_by_fields(chosen_report)
-        pass
+        if self.report_list_search.currentItem() is not None:
+            chosen_report = self.report_list_search.currentItem().text()
+            return self.rs.get_report_id_by_fields(chosen_report)
+        else:
+            return None
+
 
     def getValue(self, report_id):
         pass
