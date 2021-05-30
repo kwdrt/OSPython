@@ -527,6 +527,7 @@ class Ui_RaportWindow(object):
 
     # check if report is valid (18 checks? some can be skipped)
     def validate(self):
+        return True
         pass
 
     def refresh_reports_list(self):
@@ -535,46 +536,16 @@ class Ui_RaportWindow(object):
 
     # add report with current data
     def add_report(self):
-        # print(self.KM_to_place.toPlainText())
-        # print(self.KM_to_place)
-        # print(self.at_place_date.date().toString('dd-MM-yyyy'))
-        # print(self.at_place_hour.dateTime().toString('HH:mm'))
-        # print(self.rs)
 
         # get id of driver, section leader, action leader
 
-        # TODO change to translate_to id because now it's bad
-
-        # next three blocks can be replaced with translate_to_id call
         driver_details = self.driver_id.currentText()
-        dd = driver_details.split(",")
-        d_len = len(dd)
-        d_num = dd[d_len - 1]
-        d_last = dd[d_len - 2]
-        d_first = ""
-        for i in range(0, d_len - 2):
-            d_first += dd[i]
-        d_id = self.ps.check_person_existence(d_first, d_last, int(d_num))
-
         sleader_details = self.section_leader_id.currentText()
-        sl = sleader_details.split(",")
-        sl_len = len(sl)
-        sl_num = sl[d_len - 1]
-        sl_last = sl[d_len - 2]
-        sl_first = ""
-        for i in range(0, sl_len - 2):
-            sl_first += sl[i]
-        sl_id = self.ps.check_person_existence(sl_first, sl_last, int(sl_num))
-
         aleader_details = self.action_leader_id.currentText()
-        al = aleader_details.split(",")
-        al_len = len(al)
-        al_num = al[al_len - 1]
-        al_last = al[d_len - 2]
-        al_first = ""
-        for i in range(0, al_len - 2):
-            al_first += al[i]
-        al_id = self.ps.check_person_existence(al_first, al_last, int(al_num))
+
+        d_id = self.translate_to_id(driver_details)
+        sl_id = self.translate_to_id(sleader_details)
+        al_id = self.translate_to_id(aleader_details)
 
         self.rs.add_report(self.KM_to_place.toPlainText(),
                            self.accident_type.toPlainText(),
@@ -604,7 +575,6 @@ class Ui_RaportWindow(object):
             return self.rs.get_report_id_by_fields(chosen_report)
         else:
             return None
-
 
     def getValue(self, report_id):
         pass
