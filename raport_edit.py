@@ -402,32 +402,76 @@ class Ui_RaportEditWindow(object):
         return all_text_data
 
     # should be nearly the same as in raport.py
+
+    def check_special_field_in_current(self, group):
+        included = 0
+        for i in range(0, self.section_current.count()):
+            if self.section_current.item(i).text() == group.currentText():
+                included = 1
+                break
+        if included == 0:
+            return False
+        else:
+            return True
+
+    # check if report is valid (18 checks? some can be skipped)
     def validate(self):
-        pass
+        if self.section_current.count() == 0:
+            return False
+        if self.accident_type.toPlainText() == "":
+            return False
+        if self.place_name.toPlainText() == "":
+            return False
+        if self.counter_state.toPlainText() != "":
+            if not self.counter_state.toPlainText().isdecimal():
+                return False
+        if self.counter_state.toPlainText() == "":
+            return False
+        if self.KM_to_place.toPlainText() != "":
+            if not self.KM_to_place.toPlainText().isdecimal():
+                return False
+        if self.KM_to_place.toPlainText() == "":
+            return False
+
+        if not self.check_special_field_in_current(self.section_leader_id):
+            return False
+        if not self.check_special_field_in_current(self.action_leader_id):
+            return False
+        if not self.check_special_field_in_current(self.driver_id):
+            return False
+
+        print("Validated")
+        return True
 
     # upload updated report
     def update_report(self):
-        self.rs.change_report_data(self.report_id,
-                                   self.KM_to_place.toPlainText(),
-                                   self.accident_type.toPlainText(),
-                                   self.at_place_date.dateTime().toString('dd-MM-yyyy'),
-                                   self.at_place_hour.dateTime().toString('HH:mm'),
-                                   self.counter_state.toPlainText(),
-                                   self.depot_hour.dateTime().toString('HH:mm'),
-                                   self.injured.toPlainText(),
-                                   self.out_date.date().toString('dd-MM-yyyy'),
-                                   self.out_hour.dateTime().toString('HH:mm'),
-                                   self.perpetrator.toPlainText(),
-                                   self.place_name.toPlainText(),
-                                   self.return_date.date().toString('dd-MM-yyyy'),
-                                   self.return_hour.dateTime().toString('HH:mm'),
-                                   self.get_selected_members_ids(),
-                                   self.translate_to_id(self.section_leader_id.currentText()),
-                                   int(self.close_report.isChecked()),
-                                   self.translate_to_id(self.action_leader_id.currentText()),
-                                   self.translate_to_id(self.driver_id.currentText()),
-                                   self.accident_type_2.toPlainText())
+        if self.validate() is not True:
+            print("Invalid report")
+            error_dialog = QtWidgets.QErrorMessage()
+            error_dialog.showMessage('Raport został źle wypełniony!')
+            error_dialog.exec_()
 
+        else:
+            self.rs.change_report_data(self.report_id,
+                                       self.KM_to_place.toPlainText(),
+                                       self.accident_type.toPlainText(),
+                                       self.at_place_date.dateTime().toString('dd-MM-yyyy'),
+                                       self.at_place_hour.dateTime().toString('HH:mm'),
+                                       self.counter_state.toPlainText(),
+                                       self.depot_hour.dateTime().toString('HH:mm'),
+                                       self.injured.toPlainText(),
+                                       self.out_date.date().toString('dd-MM-yyyy'),
+                                       self.out_hour.dateTime().toString('HH:mm'),
+                                       self.perpetrator.toPlainText(),
+                                       self.place_name.toPlainText(),
+                                       self.return_date.date().toString('dd-MM-yyyy'),
+                                       self.return_hour.dateTime().toString('HH:mm'),
+                                       self.get_selected_members_ids(),
+                                       self.translate_to_id(self.section_leader_id.currentText()),
+                                       int(self.close_report.isChecked()),
+                                       self.translate_to_id(self.action_leader_id.currentText()),
+                                       self.translate_to_id(self.driver_id.currentText()),
+                                       self.accident_type_2.toPlainText())
 
     def giveValue(self):
         pass
