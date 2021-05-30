@@ -236,6 +236,17 @@ class Ui_RaportEditWindow(object):
         self.all_members.itemClicked.connect(lambda: self.get_selected_members_ids())
         self.update_report_button.clicked.connect(lambda: self.update_report())
 
+    def prepare(self, ps, rs):
+        self.ps = ps
+        self.rs = rs
+        self.driver_list = self.ps.get_drivers()
+        self.set_all_drivers()
+        self.sleader_list = self.ps.get_section_leaders()
+        self.set_all_sleaders()
+        self.aleader_list = self.ps.get_action_leaders()
+        self.set_all_aleaders()
+        self.add_all_people()
+
     # delete everything, set default values
     def clean_window(self):
         # current date where it should be

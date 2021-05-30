@@ -315,6 +315,20 @@ class Ui_RaportWindow(object):
         self.at_place_search.dateTimeChanged.connect(lambda: self.filter_by_at_place_hour())
         self.at_place_date_search.dateChanged.connect(lambda: self.filter_by_at_place_date())
 
+    def prepare(self, ps, rs):
+        self.ps = ps
+        self.rs = rs
+        self.driver_list = self.ps.get_drivers()
+        self.set_all_drivers()
+        self.sleader_list = self.ps.get_section_leaders()
+        self.set_all_sleaders()
+        self.aleader_list = self.ps.get_action_leaders()
+        self.set_all_aleaders()
+        self.add_all_people()
+        self.get_all_reports()
+
+
+
     def generate_chosen_pdf(self):
         chosen_report = self.report_list_search.currentItem().text()
         chosen_report_id = self.rs.get_report_id_by_fields(chosen_report)

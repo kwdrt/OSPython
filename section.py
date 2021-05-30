@@ -168,6 +168,11 @@ class Ui_SectionWindow(object):
         self.update_member.clicked.connect(lambda: self.update_member_data())
         self.add_new_member.clicked.connect(lambda: self.add_member_data())
 
+    def prepare(self, ps, rs):
+        self.ps = ps
+        self.rs = rs
+        self.people_list = ps.get_all_people()
+        self.add_all_people()
 
     def translate_to_id(self, text):
         person_details = text.split(",")
@@ -199,36 +204,60 @@ class Ui_SectionWindow(object):
         self.driver.setChecked(chosen_person_data.get("IsDriver"))
         self.is_active.setChecked(chosen_person_data.get("IsActive"))
 
+    def validate(self, name, lastname, phone):
+        #error = []
+        if name == "" or lastname == "" or phone == "":
+            return False
+        if not phone.isdecimal() or len(phone) != 9:
+            return False
+        return True
+        #return error
 
     def update_member_data(self):
         chosen_person = self.person_to_edit.currentText()
         print(chosen_person)
         chosen_person_id = self.translate_to_id(chosen_person)
 
-        self.ps.change_person_data(chosen_person_id,
-                                   self.member_name.toPlainText(), 
-                                   self.member_lastname.toPlainText(), 
-                                   int(self.member_phone.toPlainText()),
-                                   int(self.is_active.isChecked()),
-                                   int(self.driver.isChecked()),
-                                   int(self.action_leader.isChecked()),
-                                   int(self.section_leader.isChecked()))
+        #len(self.validate) != 0
+        if not self.validate(self.member_name.toPlainText(),
+                              self.member_lastname.toPlainText(),
+                              self.member_phone.toPlainText()):
+            error_dialog = QtWidgets.QErrorMessage()
+            error_dialog.showMessage('Błędne dane członka sekcji! Sprawdź ponownie imię, nazwisko i numer telefonu.')
+            error_dialog.exec_()
+        else:
+            self.ps.change_person_data(chosen_person_id,
+                                       self.member_name.toPlainText(),
+                                       self.member_lastname.toPlainText(),
+                                       int(self.member_phone.toPlainText()),
+                                       int(self.is_active.isChecked()),
+                                       int(self.driver.isChecked()),
+                                       int(self.action_leader.isChecked()),
+                                       int(self.section_leader.isChecked()))
 
-        new_person_data = self.member_name.toPlainText() + "," + self.member_lastname.toPlainText() + "," + self.member_phone.toPlainText()
-        self.person_to_edit.setItemText(self.person_to_edit.currentIndex(), new_person_data)
+            new_person_data = self.member_name.toPlainText() + "," + self.member_lastname.toPlainText() + "," + self.member_phone.toPlainText()
+            self.person_to_edit.setItemText(self.person_to_edit.currentIndex(), new_person_data)
 
     def add_member_data(self):
-        self.ps.add_person(
-            self.new_member_name.toPlainText(),
-            self.new_member_lastname.toPlainText(),
-            int(self.new_action_leader.isChecked()),
-            1,
-            int(self.new_driver.isChecked()),
-            int(self.new_section_leader.isChecked()),
-            int(self.new_member_phone.toPlainText()))
 
-        new_person_data = self.new_member_name.toPlainText() + "," + self.new_member_lastname.toPlainText() + "," + self.new_member_phone.toPlainText()
-        self.person_to_edit.addItem(new_person_data)
+        if not self.validate(self.new_member_name.toPlainText(),
+                             self.new_member_lastname.toPlainText(),
+                             self.new_member_phone.toPlainText()):
+            error_dialog = QtWidgets.QErrorMessage()
+            error_dialog.showMessage('Błędne dane członka sekcji! Sprawdź ponownie imię, nazwisko i numer telefonu.')
+            error_dialog.exec_()
+        else:
+            self.ps.add_person(
+                self.new_member_name.toPlainText(),
+                self.new_member_lastname.toPlainText(),
+                int(self.new_action_leader.isChecked()),
+                1,
+                int(self.new_driver.isChecked()),
+                int(self.new_section_leader.isChecked()),
+                int(self.new_member_phone.toPlainText()))
+
+            new_person_data = self.new_member_name.toPlainText() + "," + self.new_member_lastname.toPlainText() + "," + self.new_member_phone.toPlainText()
+            self.person_to_edit.addItem(new_person_data)
 
 
     def refresh(self):
