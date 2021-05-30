@@ -14,12 +14,12 @@ ZROBIONE
  - obsługa zamkniętych raportów
 
 DO ZROBIENIA TODO
- 2. Filtry strasznie lagują. Da się coś z tym zrobić? (optional)
- 4. Refresh wartości między przełączeniami (dodać button do refresh) -- po dodaniu nowego członka nie wyświetla się w "wszyscy członkowie sekcji" w "dodaj nowy raport"
- 5. (optional) Dodać do firebase pole "data dodania raportu" - ustawiana z automatu aktualna data w systemie -
+ 1. Filtry strasznie lagują. Da się coś z tym zrobić? (optional)
+ 2. Refresh wartości między przełączeniami (dodać button do refresh) -- po dodaniu nowego członka nie wyświetla się w "wszyscy członkowie sekcji" w "dodaj nowy raport"
+ 3. (optional) Dodać do firebase pole "data dodania raportu" - ustawiana z automatu aktualna data w systemie -
     Później ta data będzie wyświetlana w nagłówku raportu w pdf (raczej nie potrzebne)
- 6. (optional) Ogarnąć plik exe (na koniec)
- 7. (optional) Dodać ocenianie szerokości linii w raporcie pdf. Jeżeli długość przekracza długość max ( będzie wychodzić poza stronę)
+ 4. (optional) Ogarnąć plik exe (na koniec)
+ 5. (optional) Dodać ocenianie szerokości linii w raporcie pdf. Jeżeli długość przekracza długość max ( będzie wychodzić poza stronę)
     to wybierz metodę long_data a jak nie wychodzi to single_data
- 8. (optional) Refactor
- 10. Obsługa nieaktywnych członków (?)
+ 6. (optional) Refactor
+ 7. Obsługa nieaktywnych członków (?)
