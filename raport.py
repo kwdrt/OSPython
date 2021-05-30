@@ -527,6 +527,32 @@ class Ui_RaportWindow(object):
 
     # check if report is valid (18 checks? some can be skipped)
     def validate(self):
+        # we need to check if:
+        #         - miejsce zdarzenia - is there
+        #         - rodzaj zdarzenia - is there
+        #         - stan licznika - is there, is digits
+        #         - km do miejsca zdarzenia - is there, is digits
+        #         - sekcja na akcji - is there, contains below (maybe not section leader?)
+        #         - dowódca sekcji(?), akcji, kierowca powinni być na liście "sekcja na akcji"
+        #
+
+
+        if self.section_current.count == 0:
+            return False
+
+        if self.accident_type.toPlainText() == "":
+            return False
+
+        if self.counter_state.toPlainText() != "":
+            return self.counter_state.toPlainText().isdecimal()
+        elif self.counter_state.toPlainText() == "":
+            return False
+
+        if self.KM_to_place.toPlainText() != "":
+            return self.KM_to_place.toPlainText().isdecimal()
+        elif self.counter_state.toPlainText() == "":
+            return False
+
         return True
         pass
 
@@ -537,37 +563,44 @@ class Ui_RaportWindow(object):
     # add report with current data
     def add_report(self):
 
-        # get id of driver, section leader, action leader
+        if self.validate() is not True:
+            print("Invalid report")
+            error_dialog = QtWidgets.QErrorMessage()
+            error_dialog.showMessage('Raport został źle wypełniony!')
+            error_dialog.exec_()
 
-        driver_details = self.driver_id.currentText()
-        sleader_details = self.section_leader_id.currentText()
-        aleader_details = self.action_leader_id.currentText()
+        else:
+            # get id of driver, section leader, action leader
 
-        d_id = self.translate_to_id(driver_details)
-        sl_id = self.translate_to_id(sleader_details)
-        al_id = self.translate_to_id(aleader_details)
+            driver_details = self.driver_id.currentText()
+            sleader_details = self.section_leader_id.currentText()
+            aleader_details = self.action_leader_id.currentText()
 
-        self.rs.add_report(self.KM_to_place.toPlainText(),
-                           self.accident_type.toPlainText(),
-                           self.at_place_date.dateTime().toString('dd-MM-yyyy'),
-                           self.at_place_hour.dateTime().toString('HH:mm'),
-                           self.counter_state.toPlainText(),
-                           self.depot_hour.dateTime().toString('HH:mm'),
-                           self.injured.toPlainText(),
-                           self.out_date.date().toString('dd-MM-yyyy'),
-                           self.out_hour.dateTime().toString('HH:mm'),
-                           self.perpetrator.toPlainText(),
-                           self.place_name.toPlainText(),
-                           self.return_date.date().toString('dd-MM-yyyy'),
-                           self.return_hour.dateTime().toString('HH:mm'),
-                           self.get_selected_members_ids(),
-                           sl_id,
-                           0,
-                           al_id,
-                           d_id,
-                           self.accident_type_2.toPlainText())
+            d_id = self.translate_to_id(driver_details)
+            sl_id = self.translate_to_id(sleader_details)
+            al_id = self.translate_to_id(aleader_details)
 
-        self.refresh_reports_list()
+            self.rs.add_report(self.KM_to_place.toPlainText(),
+                               self.accident_type.toPlainText(),
+                               self.at_place_date.dateTime().toString('dd-MM-yyyy'),
+                               self.at_place_hour.dateTime().toString('HH:mm'),
+                               self.counter_state.toPlainText(),
+                               self.depot_hour.dateTime().toString('HH:mm'),
+                               self.injured.toPlainText(),
+                               self.out_date.date().toString('dd-MM-yyyy'),
+                               self.out_hour.dateTime().toString('HH:mm'),
+                               self.perpetrator.toPlainText(),
+                               self.place_name.toPlainText(),
+                               self.return_date.date().toString('dd-MM-yyyy'),
+                               self.return_hour.dateTime().toString('HH:mm'),
+                               self.get_selected_members_ids(),
+                               sl_id,
+                               0,
+                               al_id,
+                               d_id,
+                               self.accident_type_2.toPlainText())
+
+            self.refresh_reports_list()
 
     def giveValue(self):
         if self.report_list_search.currentItem() is not None:
