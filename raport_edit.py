@@ -271,65 +271,63 @@ class Ui_RaportEditWindow(object):
         # to check if all is covered
 
     def prepare_window(self):
-        # self.report_id
-        # self.member_name.setPlainText(chosen_person_data.get("FirstName"))
-        # self.member_lastname.setPlainText(chosen_person_data.get("LastName"))
-        # self.member_phone.setPlainText(str(chosen_person_data.get("PhoneNumber")))
-        # self.section_leader.setChecked(chosen_person_data.get("IsSectionLeader"))
-        # self.action_leader.setChecked(chosen_person_data.get("IsActionLeader"))
-        # self.driver.setChecked(chosen_person_data.get("IsDriver"))
-        # self.is_active.setChecked(chosen_person_data.get("IsActive"))
 
         if self.report_id is None:
             print("Bad id given")
             self.update_report_button.setDisabled(True)
         else:
-            report_data = self.rs.get_report_data(self.report_id)
-            if report_data is None:
-                print("Bad data given")
+            if self.rs.is_report_closed(self.report_id) != 0:
+                error_dialog = QtWidgets.QErrorMessage()
+                error_dialog.showMessage('Raport jest już nieedytowalny!')
+                error_dialog.exec_()
                 self.update_report_button.setDisabled(True)
             else:
-                # set fields to correct chosen report values
-                self.out_date.setDate(QDate.fromString(report_data.get("out_date"), "dd-MM-yyyy"))
-                self.out_hour.setTime(QTime.fromString(report_data.get("out_hour"), "HH:mm"))
-                self.at_place_date.setDate(QDate.fromString(report_data.get("at_place_date"), "dd-MM-yyyy"))
-                self.at_place_hour.setTime(QTime.fromString(report_data.get("at_place_hour"), "HH:mm"))
-                self.place_name.setPlainText(report_data.get("place_name"))
-                self.accident_type.setPlainText(report_data.get("accident_type"))
-                self.injured.setPlainText(report_data.get("injured"))
-                self.perpetrator.setPlainText(report_data.get("perpetrator"))
-                self.accident_type_2.setPlainText(report_data.get("details"))
-                self.return_date.setDate(QDate.fromString(report_data.get("return_date"), "dd-MM-yyyy"))
-                self.return_hour.setTime(QTime.fromString(report_data.get("return_hour"), "HH:mm"))
-                self.depot_hour.setTime(QTime.fromString(report_data.get("depot_hour"), "HH:mm"))
-                self.counter_state.setPlainText(report_data.get("counter_state"))
-                self.KM_to_place.setPlainText(report_data.get("KM_to_place"))
-                ##sekcja potem
-                section = report_data.get("section_current")
+                report_data = self.rs.get_report_data(self.report_id)
+                if report_data is None:
+                    print("Bad data given")
+                    self.update_report_button.setDisabled(True)
+                else:
+                    # set fields to correct chosen report values
+                    self.out_date.setDate(QDate.fromString(report_data.get("out_date"), "dd-MM-yyyy"))
+                    self.out_hour.setTime(QTime.fromString(report_data.get("out_hour"), "HH:mm"))
+                    self.at_place_date.setDate(QDate.fromString(report_data.get("at_place_date"), "dd-MM-yyyy"))
+                    self.at_place_hour.setTime(QTime.fromString(report_data.get("at_place_hour"), "HH:mm"))
+                    self.place_name.setPlainText(report_data.get("place_name"))
+                    self.accident_type.setPlainText(report_data.get("accident_type"))
+                    self.injured.setPlainText(report_data.get("injured"))
+                    self.perpetrator.setPlainText(report_data.get("perpetrator"))
+                    self.accident_type_2.setPlainText(report_data.get("details"))
+                    self.return_date.setDate(QDate.fromString(report_data.get("return_date"), "dd-MM-yyyy"))
+                    self.return_hour.setTime(QTime.fromString(report_data.get("return_hour"), "HH:mm"))
+                    self.depot_hour.setTime(QTime.fromString(report_data.get("depot_hour"), "HH:mm"))
+                    self.counter_state.setPlainText(report_data.get("counter_state"))
+                    self.KM_to_place.setPlainText(report_data.get("KM_to_place"))
+                    ##sekcja potem
+                    section = report_data.get("section_current")
 
-                for i in range(len(section)):
-                    text = self.id_to_text(section[i])
-                    section[i] = text
+                    for i in range(len(section)):
+                        text = self.id_to_text(section[i])
+                        section[i] = text
 
-                for member in section:
-                    # self.all_members.model().removeRow()
-                    self.all_members.model().removeRow(
-                        self.all_members.row(self.all_members.findItems(member, QtCore.Qt.MatchExactly)[0]))
-                    self.section_current.addItem(member)
+                    for member in section:
+                        # self.all_members.model().removeRow()
+                        self.all_members.model().removeRow(
+                            self.all_members.row(self.all_members.findItems(member, QtCore.Qt.MatchExactly)[0]))
+                        self.section_current.addItem(member)
 
-                ##
+                    ##
 
-                #
-                driver_text = self.id_to_text(report_data.get("driver_id"))
-                section_leader_text = self.id_to_text(report_data.get("section_leader_id"))
-                action_leader_text = self.id_to_text(report_data.get("action_leader_id"))
+                    #
+                    driver_text = self.id_to_text(report_data.get("driver_id"))
+                    section_leader_text = self.id_to_text(report_data.get("section_leader_id"))
+                    action_leader_text = self.id_to_text(report_data.get("action_leader_id"))
 
-                self.driver_id.setCurrentText(driver_text)
-                self.action_leader_id.setCurrentText(action_leader_text)
-                self.section_leader_id.setCurrentText(section_leader_text)
-                #
+                    self.driver_id.setCurrentText(driver_text)
+                    self.action_leader_id.setCurrentText(action_leader_text)
+                    self.section_leader_id.setCurrentText(section_leader_text)
+                    #
 
-                self.close_report.setChecked(False)
+                    self.close_report.setChecked(False)
 
     # to call just before window switch
     def refresh(self):

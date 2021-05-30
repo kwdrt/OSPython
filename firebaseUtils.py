@@ -110,6 +110,10 @@ class ReportService:
         report = self.db.child("OSP").child("Reports").child(report_id).get()
         return report.val()
 
+    # 0 means not closed
+    def is_report_closed(self, report_id):
+        return self.get_report_data(report_id)["editable"]
+
     def get_report_id_by_fields(self, report_string):
         report_details = report_string.split(",")
         all_reports = self.get_all_reports()

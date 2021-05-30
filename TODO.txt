@@ -10,10 +10,11 @@ ZROBIONE
  - Szukanie
  - Dodanie sekcji na akcji + "powrót do menu" = bug
  - walidacja (może dodać error list)
+ - prepare() łapie cały init klasy w mainie
+ - obsługa zamkniętych raportów
 
 DO ZROBIENIA TODO
- 2. Filtry strasznie lagują. Da się coś z tym zrobić ? (optional)
- 3. Wszystkie inity w jedną funkcję na klasach
+ 2. Filtry strasznie lagują. Da się coś z tym zrobić? (optional)
  4. Refresh wartości między przełączeniami (dodać button do refresh) -- po dodaniu nowego członka nie wyświetla się w "wszyscy członkowie sekcji" w "dodaj nowy raport"
  5. (optional) Dodać do firebase pole "data dodania raportu" - ustawiana z automatu aktualna data w systemie -
     Później ta data będzie wyświetlana w nagłówku raportu w pdf (raczej nie potrzebne)
@@ -21,5 +22,4 @@ DO ZROBIENIA TODO
  7. (optional) Dodać ocenianie szerokości linii w raporcie pdf. Jeżeli długość przekracza długość max ( będzie wychodzić poza stronę)
     to wybierz metodę long_data a jak nie wychodzi to single_data
  8. (optional) Refactor
- 9. Obsługa zamkniętych raportów
  10. Obsługa nieaktywnych członków (?)
