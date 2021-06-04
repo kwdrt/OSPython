@@ -318,16 +318,6 @@ class Ui_RaportWindow(object):
     def prepare(self, ps, rs):
         self.ps = ps
         self.rs = rs
-        self.driver_list = self.ps.get_drivers()
-        self.set_all_drivers()
-        self.sleader_list = self.ps.get_section_leaders()
-        self.set_all_sleaders()
-        self.aleader_list = self.ps.get_action_leaders()
-        self.set_all_aleaders()
-        self.add_all_people()
-        self.get_all_reports()
-
-
 
     def generate_chosen_pdf(self):
         chosen_report = self.report_list_search.currentItem().text()
@@ -409,13 +399,7 @@ class Ui_RaportWindow(object):
             if i is not None and i.get("IsActive"):
                 self.all_members.addItem(i.get("FirstName") + "," + i.get("LastName") + "," + str(i.get("PhoneNumber")))
 
-    # to get rid of repeating instructions
 
-    # adds all elements to the UI item, can expand with refresh of the list later
-    def set_all(self, list_all, ui_element):
-        for person in list_all:
-            self.ui_element.addItem(
-                person.get("FirstName") + "," + person.get("LastName") + "," + str(person.get("PhoneNumber")))
 
     # gets id of chosen person from data in UI element, should return None if not found (should not happen in usage)
     def translate_to_id(self, text):
@@ -428,7 +412,6 @@ class Ui_RaportWindow(object):
             p_first += person_details[i]
         return self.ps.check_person_existence(p_first, p_last, int(p_num))
 
-    # end of these
 
     # next three can be replaced with set_all
     def set_all_drivers(self):
@@ -453,11 +436,24 @@ class Ui_RaportWindow(object):
     # delete everything, set default values
     def clean_window(self):
         self.set_current_values()
+        self.driver_id.clear()
+        self.section_leader_id.clear()
+        self.action_leader_id.clear()
+        self.section_current.clear()
+        self.all_members.clear()
         # T O D O - clean everything else
 
     # to call just before window switch
     def refresh(self):
         self.clean_window()
+        self.driver_list = self.ps.get_drivers()
+        self.set_all_drivers()
+        self.sleader_list = self.ps.get_section_leaders()
+        self.set_all_sleaders()
+        self.aleader_list = self.ps.get_action_leaders()
+        self.set_all_aleaders()
+        self.add_all_people()
+        self.get_all_reports()
         # should load drivers etc again here
 
     # sets date values to current ones
@@ -560,7 +556,7 @@ class Ui_RaportWindow(object):
         print("Before acc")
         if self.accident_type.toPlainText() == "":
             return False
-        if self.place_name.toPlainText() == "":
+        if self.place_name.toPlainText() == "" or "," in self.place_name.toPlainText():
             return False
         print("Before counter")
         if self.counter_state.toPlainText() != "":

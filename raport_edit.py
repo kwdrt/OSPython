@@ -429,7 +429,7 @@ class Ui_RaportEditWindow(object):
             return False
         if self.accident_type.toPlainText() == "":
             return False
-        if self.place_name.toPlainText() == "":
+        if self.place_name.toPlainText() == "" or "," in self.place_name.toPlainText():
             return False
         if self.counter_state.toPlainText() != "":
             if not self.counter_state.toPlainText().isdecimal():

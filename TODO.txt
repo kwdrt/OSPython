@@ -13,13 +13,13 @@ ZROBIONE
  - prepare() łapie cały init klasy w mainie
  - obsługa zamkniętych raportów
  - Obsługa nieaktywnych członków
+ - Refresh wartości między przełączeniami (dodać button do refresh) -- po dodaniu nowego członka nie wyświetla się w "wszyscy członkowie sekcji" w "dodaj nowy raport" - rozwiązane inaczej i git
+ - Ogarnąć plik exe (na koniec) - wiemy jak, RC jest na hubie
 
 DO ZROBIENIA TODO
- 1. Filtry strasznie lagują. Da się coś z tym zrobić? (optional)
- 2. Refresh wartości między przełączeniami (dodać button do refresh) -- po dodaniu nowego członka nie wyświetla się w "wszyscy członkowie sekcji" w "dodaj nowy raport"
- 3. (optional) Dodać do firebase pole "data dodania raportu" - ustawiana z automatu aktualna data w systemie -
+ 1. (optional) Filtry strasznie lagują. (nie) Da się coś z tym zrobić?
+ 3. (optional) Dodać do firebase pole "data dodania raportu" - ustawiana z automatu aktualna data w systemie
     Później ta data będzie wyświetlana w nagłówku raportu w pdf (raczej nie potrzebne)
- 4. (optional) Ogarnąć plik exe (na koniec)
  5. (optional) Dodać ocenianie szerokości linii w raporcie pdf. Jeżeli długość przekracza długość max ( będzie wychodzić poza stronę)
     to wybierz metodę long_data a jak nie wychodzi to single_data
  6. (optional) Refactor
