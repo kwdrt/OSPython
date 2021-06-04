@@ -46,7 +46,7 @@ class PersonService:
         drivers = []
         for key, i in peoples.items():
             if i is not None:
-                if i.get("IsDriver") == 1:
+                if i.get("IsDriver") and i.get("IsActive"):
                     drivers.append({"FirstName": i.get("FirstName"), "LastName": i.get("LastName"), "PhoneNumber": i.get("PhoneNumber")})
         return drivers
 
@@ -55,7 +55,7 @@ class PersonService:
         action_leaders = []
         for key, i in peoples.items():
             if i is not None:
-                if i.get("IsActionLeader") == 1:
+                if i.get("IsActionLeader") and i.get("IsActive"):
                     action_leaders.append({"FirstName": i.get("FirstName"), "LastName": i.get("LastName"), "PhoneNumber": i.get("PhoneNumber")})
         return action_leaders
 
@@ -64,7 +64,7 @@ class PersonService:
         section_leaders = []
         for key, i in peoples.items():
             if i is not None:
-                if i.get("IsSectionLeader") == 1:
+                if i.get("IsSectionLeader") and i.get("IsActive"):
                     section_leaders.append({"FirstName": i.get("FirstName"), "LastName": i.get("LastName"), "PhoneNumber": i.get("PhoneNumber")})
         return section_leaders
 

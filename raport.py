@@ -406,7 +406,7 @@ class Ui_RaportWindow(object):
     def add_all_people(self):
         all_people = self.ps.get_all_people()
         for key, i in all_people.items():
-            if i is not None:
+            if i is not None and i.get("IsActive"):
                 self.all_members.addItem(i.get("FirstName") + "," + i.get("LastName") + "," + str(i.get("PhoneNumber")))
 
     # to get rid of repeating instructions
