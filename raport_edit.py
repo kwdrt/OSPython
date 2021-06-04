@@ -292,7 +292,7 @@ class Ui_RaportEditWindow(object):
                     section = report_data.get("section_current")
 
                     for i in range(len(section)):
-                        text = self.id_to_text(section[i])
+                        text = self.ps.id_to_text(section[i])
                         section[i] = text
 
                     for member in section:
@@ -300,9 +300,9 @@ class Ui_RaportEditWindow(object):
                             self.all_members.row(self.all_members.findItems(member, QtCore.Qt.MatchExactly)[0]))
                         self.section_current.addItem(member)
 
-                    driver_text = self.id_to_text(report_data.get("driver_id"))
-                    section_leader_text = self.id_to_text(report_data.get("section_leader_id"))
-                    action_leader_text = self.id_to_text(report_data.get("action_leader_id"))
+                    driver_text = self.ps.id_to_text(report_data.get("driver_id"))
+                    section_leader_text = self.ps.id_to_text(report_data.get("section_leader_id"))
+                    action_leader_text = self.ps.id_to_text(report_data.get("action_leader_id"))
 
                     self.driver_id.setCurrentText(driver_text)
                     self.action_leader_id.setCurrentText(action_leader_text)
@@ -312,7 +312,7 @@ class Ui_RaportEditWindow(object):
 
     # to call just before window switch
     def refresh(self):
-        self.clean_window()
+        self.window = self.clean_window()
         self.driver_list = self.ps.get_drivers()
         self.set_all_drivers()
         self.sleader_list = self.ps.get_section_leaders()
@@ -329,22 +329,6 @@ class Ui_RaportEditWindow(object):
             if i is not None and i.get("IsActive"):
                 self.all_members.addItem(i.get("FirstName") + "," + i.get("LastName") + "," + str(i.get("PhoneNumber")))
 
-    #to service
-    def id_to_text(self, id):
-        person = self.ps.get_person_by_id(id)
-        person_data = person.get("FirstName") + "," + person.get("LastName") + "," + str(person.get("PhoneNumber"))
-        return person_data
-
-    def translate_to_id(self, text):
-        person_details = text.split(",")
-        p_len = len(person_details)
-        p_num = person_details[p_len - 1]
-        p_last = person_details[p_len - 2]
-        p_first = ""
-        for i in range(0, p_len - 2):
-            p_first += person_details[i]
-        return self.ps.check_person_existence(p_first, p_last, int(p_num))
-
     def set_all_drivers(self):
         for driver in self.driver_list:
             self.driver_id.addItem(
@@ -359,8 +343,6 @@ class Ui_RaportEditWindow(object):
         for sleader in self.sleader_list:
             self.section_leader_id.addItem(
                 sleader.get("FirstName") + "," + sleader.get("LastName") + "," + str(sleader.get("PhoneNumber")))
-
-
 
     def pick_person_all(self):
         person_picked = self.all_members.currentItem().text()
@@ -377,7 +359,7 @@ class Ui_RaportEditWindow(object):
     def get_selected_members_ids(self):
         all_text_data = [str(self.section_current.item(i).text()) for i in range(self.section_current.count())]
         for i in range(len(all_text_data)):
-            all_text_data[i] = self.translate_to_id(all_text_data[i])
+            all_text_data[i] = self.ps.translate_to_id(all_text_data[i])
         return all_text_data
 
     # should be nearly the same as in raport.py
@@ -445,10 +427,10 @@ class Ui_RaportEditWindow(object):
                                        self.return_date.date().toString('dd-MM-yyyy'),
                                        self.return_hour.dateTime().toString('HH:mm'),
                                        self.get_selected_members_ids(),
-                                       self.translate_to_id(self.section_leader_id.currentText()),
+                                       self.ps.translate_to_id(self.section_leader_id.currentText()),
                                        int(self.close_report.isChecked()),
-                                       self.translate_to_id(self.action_leader_id.currentText()),
-                                       self.translate_to_id(self.driver_id.currentText()),
+                                       self.ps.translate_to_id(self.action_leader_id.currentText()),
+                                       self.ps.translate_to_id(self.driver_id.currentText()),
                                        self.accident_type_2.toPlainText())
 
     def give_value(self):

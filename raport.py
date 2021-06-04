@@ -316,19 +316,7 @@ class Ui_RaportWindow(object):
         if chosen_report_id is not None:
             PDFgenerator.PDFgen(chosen_report_id, self.ps, self.rs)
 
-    # report data view helpers
-    def id_to_text(self, ps, id):
-        person = ps.get_person_by_id(id)
-        person_data = person.get("FirstName") + " " + person.get("LastName")
-        return person_data
-
-    def section_to_string(self, ps, section_table):
-        section_string = ""
-        for id in section_table:
-            section_string += self.id_to_text(ps, id) + "\n"
-        if section_string == "":
-            print("Empty section")
-        return section_string
+    
 
     def selection_changed(self):
         self.edit_report_button.setEnabled(True)
@@ -346,12 +334,11 @@ class Ui_RaportWindow(object):
         printed_data += "Rodzaj zdarzenia: " + chosen_report_data.get("accident_type") + "\n"
         printed_data += "Miejsce zdarzenia: " + chosen_report_data.get("place_name") + "\n\n"
 
-        printed_data += "Skład sekcji: " + "\n" + self.section_to_string(self.ps, chosen_report_data.get(
+        printed_data += "Skład sekcji: " + "\n" + self.ps.section_to_string(chosen_report_data.get(
             "section_current")) + "\n"
-        printed_data += "Dowódca sekcji: " + self.id_to_text(self.ps,
-                                                             chosen_report_data.get("section_leader_id")) + "\n"
-        printed_data += "Dowódca akcji: " + self.id_to_text(self.ps, chosen_report_data.get("action_leader_id")) + "\n"
-        printed_data += "Kierowca: " + self.id_to_text(self.ps, chosen_report_data.get("driver_id")) + "\n"
+        printed_data += "Dowódca sekcji: " + self.ps.id_to_text(chosen_report_data.get("section_leader_id")) + "\n"
+        printed_data += "Dowódca akcji: " + self.ps.id_to_text(chosen_report_data.get("action_leader_id")) + "\n"
+        printed_data += "Kierowca: " + self.ps.id_to_text(chosen_report_data.get("driver_id")) + "\n"
         printed_data += "Sprawca: " + chosen_report_data.get("perpetrator") + "\n"
         printed_data += "Poszkodowany: " + chosen_report_data.get("injured") + "\n"
         printed_data += "Szczegóły zdarzenia: " + chosen_report_data.get("details") + "\n"
@@ -378,20 +365,6 @@ class Ui_RaportWindow(object):
         for key, i in all_people.items():
             if i is not None and i.get("IsActive"):
                 self.all_members.addItem(i.get("FirstName") + "," + i.get("LastName") + "," + str(i.get("PhoneNumber")))
-
-
-
-    # gets id of chosen person from data in UI element, should return None if not found (should not happen in usage)
-    def translate_to_id(self, text):
-        person_details = text.split(",")
-        p_len = len(person_details)
-        p_num = person_details[p_len - 1]
-        p_last = person_details[p_len - 2]
-        p_first = ""
-        for i in range(0, p_len - 2):
-            p_first += person_details[i]
-        return self.ps.check_person_existence(p_first, p_last, int(p_num))
-
 
     # next three can be replaced with set_all
     def set_all_drivers(self):
@@ -504,7 +477,7 @@ class Ui_RaportWindow(object):
     def get_selected_members_ids(self):
         all_text_data = [str(self.section_current.item(i).text()) for i in range(self.section_current.count())]
         for i in range(len(all_text_data)):
-            all_text_data[i] = self.translate_to_id(all_text_data[i])
+            all_text_data[i] = self.ps.translate_to_id(all_text_data[i])
         return all_text_data
 
     def check_special_field_in_current(self, group):
@@ -563,9 +536,9 @@ class Ui_RaportWindow(object):
             sleader_details = self.section_leader_id.currentText()
             aleader_details = self.action_leader_id.currentText()
 
-            d_id = self.translate_to_id(driver_details)
-            sl_id = self.translate_to_id(sleader_details)
-            al_id = self.translate_to_id(aleader_details)
+            d_id = self.ps.translate_to_id(driver_details)
+            sl_id = self.ps.translate_to_id(sleader_details)
+            al_id = self.ps.translate_to_id(aleader_details)
 
             self.rs.add_report(self.KM_to_place.toPlainText(),
                                self.accident_type.toPlainText(),

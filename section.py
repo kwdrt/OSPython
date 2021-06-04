@@ -161,16 +161,6 @@ class Ui_SectionWindow(object):
         self.people_list = ps.get_all_people()
         self.add_all_people()
 
-    def translate_to_id(self, text):
-        person_details = text.split(",")
-        p_len = len(person_details)
-        p_num = person_details[p_len - 1]
-        p_last = person_details[p_len - 2]
-        p_first = ""
-        for i in range(0, p_len - 2):
-            p_first += person_details[i]
-        return self.ps.check_person_existence(p_first, p_last, int(p_num))
-
     def add_all_people(self):
         all_people = self.ps.get_all_people()
         for key, i in all_people.items():
@@ -180,7 +170,7 @@ class Ui_SectionWindow(object):
     def set_active_info(self):
         chosen_person = self.person_to_edit.currentText()
         print(chosen_person)
-        chosen_person_id = self.translate_to_id(chosen_person)
+        chosen_person_id = self.ps.translate_to_id(chosen_person)
         chosen_person_data = self.ps.get_person_by_id(chosen_person_id)
         print(chosen_person_data)
         self.member_name.setPlainText(chosen_person_data.get("FirstName"))
@@ -201,7 +191,7 @@ class Ui_SectionWindow(object):
     def update_member_data(self):
         chosen_person = self.person_to_edit.currentText()
         print(chosen_person)
-        chosen_person_id = self.translate_to_id(chosen_person)
+        chosen_person_id = self.ps.translate_to_id(chosen_person)
 
         if not self.validate(self.member_name.toPlainText(),
                               self.member_lastname.toPlainText(),
