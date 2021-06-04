@@ -20,6 +20,6 @@ DO ZROBIENIA TODO
  1. (optional) Filtry strasznie lagują. (nie) Da się coś z tym zrobić?
  3. (optional) Dodać do firebase pole "data dodania raportu" - ustawiana z automatu aktualna data w systemie
     Później ta data będzie wyświetlana w nagłówku raportu w pdf (raczej nie potrzebne)
- 5. (optional) Dodać ocenianie szerokości linii w raporcie pdf. Jeżeli długość przekracza długość max ( będzie wychodzić poza stronę)
+ 5. (optional) Dodać ocenianie szerokości linii w raporcie pdf. Jeżeli długość przekracza długość max (będzie wychodzić poza stronę)
     to wybierz metodę long_data a jak nie wychodzi to single_data
  6. (optional) Refactor
