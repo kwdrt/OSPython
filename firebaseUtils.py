@@ -97,6 +97,30 @@ class PersonService:
     def get_person_by_id(self, id):
         return self.db.child("OSP").child("People").child(id).get().val()
 
+    def id_to_text(self, id):
+        person = self.get_person_by_id(id)
+        person_data = person.get("FirstName") + " " + person.get("LastName")
+        return person_data
+
+    def section_to_string(self, section_table):
+        section_string = ""
+        for id in section_table:
+            section_string += self.id_to_text(id) + "\n"
+        if section_string == "":
+            print("Empty section")
+        return section_string
+
+    # gets id of chosen person from data in UI element, should return None if not found (should not happen in usage)
+    def translate_to_id(self, text):
+        person_details = text.split(",")
+        p_len = len(person_details)
+        p_num = person_details[p_len - 1]
+        p_last = person_details[p_len - 2]
+        p_first = ""
+        for i in range(0, p_len - 2):
+            p_first += person_details[i]
+        return self.check_person_existence(p_first, p_last, int(p_num))
+
 class ReportService:
     def __init__(self):
         self.firebase = Firebase(config)

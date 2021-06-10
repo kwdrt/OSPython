@@ -14,60 +14,63 @@ from raport_edit import Ui_RaportEditWindow
 ps = fU.PersonService()
 rs = fU.ReportService()
 
+
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
-    def __init__(self, *args, obj=None, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
         self.setFixedSize(260, 400)
 
 
-class RaportWindow(QtWidgets.QMainWindow, Ui_RaportWindow):
-    def __init__(self, *args, obj=None, **kwargs):
-        super(RaportWindow, self).__init__(*args, **kwargs)
+class ReportWindow(QtWidgets.QMainWindow, Ui_RaportWindow):
+    def __init__(self, *args, **kwargs):
+        super(ReportWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
         self.prepare(ps, rs)
 
 
 class SectionWindow(QtWidgets.QMainWindow, Ui_SectionWindow):
-    def __init__(self, *args, obj=None, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(SectionWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
         self.prepare(ps, rs)
 
 
-class RaportEditWindow(QtWidgets.QMainWindow, Ui_RaportEditWindow):
-    def __init__(self, *args, obj=None, **kwargs):
-        super(RaportEditWindow, self).__init__(*args, **kwargs)
+class ReportEditWindow(QtWidgets.QMainWindow, Ui_RaportEditWindow):
+    def __init__(self, *args, **kwargs):
+        super(ReportEditWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
         self.prepare(ps, rs)
 
 
-def switch_window(currentWindow, newWindow):
-    newWindow.getValue(currentWindow.giveValue())
-    currentWindow.close()
-    newWindow.refresh()
-    newWindow.show()
+def switch_window(current_window, new_window):
+    new_window.get_value(current_window.give_value())
+    current_window.close()
+    new_window.refresh()
+    new_window.show()
 
-def shutdown(app):
-    app.closeAllWindows()
+
+def shutdown(application):
+    application.closeAllWindows()
+
 
 app = QtWidgets.QApplication(sys.argv)
 
 # starting windows
 start_window = MainWindow()
-raport_window = RaportWindow()
+report_window = ReportWindow()
 section_window = SectionWindow()
-raport_edit_window = RaportEditWindow()
+report_edit_window = ReportEditWindow()
 
 # code responsible for switching windows (linking to buttons)
-start_window.pushButton.clicked.connect(lambda: switch_window(start_window, raport_window))
+start_window.pushButton.clicked.connect(lambda: switch_window(start_window, report_window))
 start_window.pushButton_2.clicked.connect(lambda: switch_window(start_window, section_window))
 start_window.pushButton_3.clicked.connect(lambda: shutdown(app))
 
-raport_window.pushButton_2.clicked.connect(lambda: switch_window(raport_window, start_window))
-raport_window.edit_report_button.clicked.connect(lambda: switch_window(raport_window, raport_edit_window))
+report_window.pushButton_2.clicked.connect(lambda: switch_window(report_window, start_window))
+report_window.edit_report_button.clicked.connect(lambda: switch_window(report_window, report_edit_window))
 
-raport_edit_window.pushButton_2.clicked.connect(lambda: switch_window(raport_edit_window, raport_window))
+report_edit_window.pushButton_2.clicked.connect(lambda: switch_window(report_edit_window, report_window))
 
 section_window.pushButton_2.clicked.connect(lambda: switch_window(section_window, start_window))
 

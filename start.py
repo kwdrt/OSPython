@@ -77,7 +77,8 @@ class Ui_MainWindow(object):
     def refresh(self):
         pass
 
-    def giveValue(self):
+    def give_value(self):
         pass
-    def getValue(self, report_id):
+
+    def get_value(self, report_id):
         pass
