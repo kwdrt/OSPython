@@ -14,9 +14,9 @@ Projekt jest aplikacją desktopową wykonaną przy pomocy PyQt5, która pomaga w
 
 ## Technologie
 
-1. Baza danych firebase
+1. Baza danych Firebase
 2. PyQt5
-3. Biblioteka do obsługi plików PDF
+3. Biblioteka do obsługi plików PDF (fpdf2)
 
 
 
