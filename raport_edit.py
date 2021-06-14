@@ -312,7 +312,7 @@ class Ui_RaportEditWindow(object):
 
     # to call just before window switch
     def refresh(self):
-        self.window = self.clean_window()
+        self.clean_window()
         self.driver_list = self.ps.get_drivers()
         self.set_all_drivers()
         self.sleader_list = self.ps.get_section_leaders()

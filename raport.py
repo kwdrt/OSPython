@@ -406,7 +406,7 @@ class Ui_RaportWindow(object):
         self.aleader_list = self.ps.get_action_leaders()
         self.set_all_aleaders()
         self.add_all_people()
-        self.get_all_reports()
+        self.refresh_reports_list()
         # should load drivers etc again here
 
     # sets date values to current ones
