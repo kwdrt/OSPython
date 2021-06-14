@@ -102,6 +102,11 @@ class PersonService:
         person_data = person.get("FirstName") + " " + person.get("LastName")
         return person_data
 
+    def id_to_box(self, id):
+        person = self.get_person_by_id(id)
+        person_data = person.get("FirstName") + "," + person.get("LastName") + "," + str(person.get("PhoneNumber"))
+        return person_data
+
     def section_to_string(self, section_table):
         section_string = ""
         for id in section_table:

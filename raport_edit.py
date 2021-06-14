@@ -292,7 +292,7 @@ class Ui_RaportEditWindow(object):
                     section = report_data.get("section_current")
 
                     for i in range(len(section)):
-                        text = self.ps.id_to_text(section[i])
+                        text = self.ps.id_to_box(section[i])
                         section[i] = text
 
                     for member in section:
